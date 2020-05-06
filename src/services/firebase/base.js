@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/firestore";
 import "firebase/auth";
 
 /**
@@ -10,6 +11,10 @@ const auth = () => {
   return firebase.auth();
 };
 
+const db = () => {
+  return firebase.firestore();
+};
+
 /** Convenience method to initialize firebase app
  *
  * @param  {Object} config
@@ -19,7 +24,4 @@ const fBInit = config => {
   return firebase.initializeApp(config);
 };
 
-export default {
-  auth,
-  fBInit
-};
+export default { auth, fBInit, db };

@@ -25,16 +25,16 @@ const routes = [
         children: [
           {
             path: "orders",
-            name: "UserOrders",
+            name: "UserOrdersPage",
             component: () => import("components/user/Orders.vue")
           },
           {
             path: "cart",
-            name: "UserOrders",
+            name: "UserCartPage",
             component: () => import("components/user/Cart.vue")
           },
           {
-            path: "/dmin",
+            path: "/admin",
             name: "AdminPage",
             component: () => import("components/user/AdminPage.vue")
           }
@@ -43,15 +43,10 @@ const routes = [
     ]
   },
   {
-    path: "/signin",
+    path: "/",
     name: "SignInPage",
     component: () => import("layouts/SignIn.vue"),
     children: [
-      {
-        path: "",
-        name: "LoginPage",
-        component: () => import("components/user/LogIn.vue")
-      },
       {
         path: "login",
         name: "LoginPage",

@@ -4,7 +4,7 @@
     <q-toolbar>
       <tool-tip anchor="bottom left"
             selfPosition="bottom left"
-            :delay="200" >Prikazi panel sa kategorijama</tool-tip>
+            :delay="50" >Prikazi panel sa kategorijama</tool-tip>
         <q-btn
         class="text-info"
           flat
