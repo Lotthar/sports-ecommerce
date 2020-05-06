@@ -1,6 +1,6 @@
 <template>
   <div>
-    Poslati id proizvoda:  {{ $route.params.id }}
+    Poslati id proizvoda:  {{ $route.params.productId }}
     </div>
 </template>
 <script>

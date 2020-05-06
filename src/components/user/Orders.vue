@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h5>Kategorija 1</h5>
-  </div>
+      ORDERS
+    </div>
 </template>
 <script>
 export default {
-  name: "ProductCategory",
-  
+  name: "UserOrders"
 }
 </script>

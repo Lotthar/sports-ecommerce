@@ -1,5 +1,5 @@
 <template>
   <div>
-    SEKCIJA PO POLU
+    CART
   </div>
 </template>

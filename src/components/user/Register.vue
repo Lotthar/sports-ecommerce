@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h5>Kategorija 1</h5>
+    REGISTER
   </div>
 </template>
 <script>
 export default {
-  name: "ProductCategory",
-  
+    name: "RegisterPage",
 }
 </script>

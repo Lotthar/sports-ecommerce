@@ -9,7 +9,10 @@
       content-class="bg-grey-1"
       :breakpoint="765"
     >
+      <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
+      <user-toolbar />
       <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->
+      <category />
     </q-drawer>
 
     <q-page-container>
@@ -29,6 +32,8 @@ export default {
   },
   components: {
     "store-header" : () => import("../components/header/Header"),
+    "category" : () => import("../components/products/Category"),
+    "user-toolbar": () => import("../components/user/UserDrawerToolbar")
   }
 }
 </script>
