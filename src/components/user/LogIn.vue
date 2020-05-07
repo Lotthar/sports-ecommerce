@@ -1,6 +1,5 @@
 <template>
-  <q-page-container>
-    <q-page>
+    <q-page style="min-height: 450px;">
       <q-card-section v-if="passwordForgoten == false">
         <q-form ref="loginForm">
           <q-card-section>
@@ -89,7 +88,6 @@
           </q-form>
         </q-card-section>
       </q-page>
-  </q-page-container>
 </template>
 
 <script>
@@ -259,6 +257,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .q-btn {
   color: $dark;
 }

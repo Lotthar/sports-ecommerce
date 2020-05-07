@@ -1,6 +1,5 @@
 <template>
-  <q-page-container>
-    <q-page>
+    <q-page style="min-height: 450px;">
       <q-card-section>
         <q-form ref="registerForm">
           <q-card-section>
@@ -116,7 +115,6 @@
         </q-form>
       </q-card-section>
     </q-page>
-  </q-page-container>
 </template>
 
 <script>

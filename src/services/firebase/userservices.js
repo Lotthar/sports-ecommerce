@@ -5,34 +5,6 @@ const PASS = "prodavnica123";
 
 const usersCollection = baseService.db().collection("users");
 
-const userFBSignIn = async credential => {
-  let response = await baseService
-    .auth()
-    .signInWithEmailAndPassword(credential.email, credential.password);
-  return response;
-};
-
-const getFBUserByUID = async uid => {
-  try {
-    // const loggedUser = await userFBSignIn({ email: EMAIL, password: PASS });
-    const fbUser = await usersCollection.doc(uid).get();
-    return fbUser;
-  } catch (error) {
-    if (error.code === "permission-denied") {
-      console.log(
-        "Korisnik nema dozvolu da izvrsi ove radnje, user uid: " + uid
-      );
-    } else {
-      console.log(
-        "Nesto nije u redu pri dovlacenju user iz firebase-a sa id-em: " +
-          uid +
-          " error: " +
-          error
-      );
-    }
-  }
-};
-
 // Get firebase auth user
 const authUser = () => {
   return firebase.auth().currentUser;
@@ -44,30 +16,30 @@ export const loggUser = () => {
   return true;
 };
 
-const setSessionCookies = uid => {
-  try {
-    Cookies.set("todoSessionId", uid, {
-      expires: 1,
-      path: "/"
-    });
-    console.log("Session/Cookies user set successfuly");
-    return true;
-  } catch (error) {
-    console.log("Error storing user inside a session/cookies", error);
-    return false;
-  }
-};
+// const setSessionCookies = uid => {
+//   try {
+//     Cookies.set("todoSessionId", uid, {
+//       expires: 1,
+//       path: "/"
+//     });
+//     console.log("Session/Cookies user set successfuly");
+//     return true;
+//   } catch (error) {
+//     console.log("Error storing user inside a session/cookies", error);
+//     return false;
+//   }
+// };
 
 // Returns user from firebase
 const getUserFirebase = async userUID => {
   try {
     // const loggedUser = await userFBSignIn({ email: EMAIL, password: PASS });
-    const fbUser = await usersCollection.doc(uid).get();
+    const fbUser = await usersCollection.doc(userUID).get();
     return fbUser;
   } catch (error) {
     if (error.code === "permission-denied") {
       console.log(
-        "Korisnik nema dozvolu da izvrsi ove radnje, user uid: " + uid
+        "Korisnik nema dozvolu da izvrsi ove radnje, user uid: " + userUID
       );
     } else {
       console.log(
@@ -170,4 +142,17 @@ const reauthenticateUser = async credential => {
   return response;
 };
 
-export { getFBUserByUID };
+export {
+  firebaseSignIn,
+  firebaseSignOut,
+  updateUserEmail,
+  firebaseRegisterUser,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  deleteUser,
+  reauthenticateUser,
+  getUserFirebase,
+  authUser,
+  loggedUser,
+  signOutSession
+};

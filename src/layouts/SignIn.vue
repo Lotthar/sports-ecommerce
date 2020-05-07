@@ -1,7 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div class="sign-in-container fixed-center">
+    <div class="sign-in-container">
         <q-card class="signin-card" style="min-width: 350px">
+          <q-img src="statics/sports-logo.jpg" />
           <q-card-section>
             <div class="row justify-center">
               <div style="text-align: center;" class="col-12 add-task-title">{{ signInHeader}}</div>
@@ -32,28 +33,31 @@ export default {
 
 <style lang="scss" scoped>
 .q-layout {
-  height: 10vh;
+  overflow-x: hidden;
   display: grid;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  grid-template-areas: '. signinarea signinarea .' ;
   background: url("../statics/sportswearbackground.jpg");
   background-color: rgba(0,0,0,0.5) !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   div.sign-in-container {
-    height: 70%;
-    max-height: 95%;
+    grid-area: signinarea;
+    max-height: 100%;
     box-shadow: 0px 0px 18px 8px $accent;
     border: 2px solid $primary;
     border-radius: 8px;
     background: rgba($color: $dark, $alpha: 0.85);
-    width: 500px;
     .signin-card {
       width: 100%;
       height: 100%;
       color: $accent;
       background: rgba($color: white, $alpha: 0.6);
-
+      .q-img {
+        height: 200px;
+        width: 100%;
+      }
       div.add-task-title {
         font-size: 24px;
       }

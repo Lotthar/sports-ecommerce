@@ -1,5 +1,8 @@
 <template>
-  <div v-if="user">
+<div  v-if="!user">
+  <h1>Loading user data...</h1>
+</div>
+  <div v-else>
     PROFILE  {{  `${user.firstname} ${user.lastname}` }}
     <div>
       <router-view />
@@ -8,7 +11,7 @@
 </template>
 
 <script>
-import { getFBUserByUID } from "../../services/firebase/userservices";
+import { getUserFirebase } from "../../services/firebase/userservices";
 
 export default {
   name: "UserProfile",
@@ -23,7 +26,10 @@ export default {
     }
   },
   async mounted() {
-    this.userFB = await getFBUserByUID(this.$route.params.userId);
+    this.userFB = await getUserFirebase(this.$route.params.userId);
+    if(!this.userFB.exists) {
+      this.$router.push({ name: "LoginPage"});
+    }
     console.log(this.userFB);
   }
 }
