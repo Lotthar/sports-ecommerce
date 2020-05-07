@@ -43,6 +43,11 @@ const routes = [
     ]
   },
   {
+    path: "/noauth",
+    name: "NotAuthorized403",
+    component: () => import("pages/NotAuthorised403.vue")
+  },
+  {
     path: "/",
     name: "SignInPage",
     component: () => import("layouts/SignIn.vue"),
