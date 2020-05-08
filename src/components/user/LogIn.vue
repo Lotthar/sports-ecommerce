@@ -148,7 +148,6 @@ export default {
           await firebaseSignIn(this.user);
           // Treba mi metod koji vraca je li korisnik ulogovan
           if (loggUser()) {
-            setSessionCookies(loggUser().uid)
             let newFBuser = this.newStateUser();
             // Ovdje dodati da se doda novi korisnik u vuex
             this.$q.notify({

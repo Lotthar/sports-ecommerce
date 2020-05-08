@@ -43,10 +43,9 @@ export default {
       const isAuth = authUser();
       const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
-      if (requiresAuth && isAuth === null) next({ path: "/login"});
-      else if (!requiresAuth && isAuth !== null ) next("/");
-      else if (!requiresAuth && isAuth === null) next();
-      else next();
+      if (requiresAuth && isAuth === null) {
+        next({ path: "/login"});
+      } else next();
     });
   },
   mounted() {
