@@ -118,8 +118,6 @@
 </template>
 
 <script>
-
-
 export default {
     name: "RegisterPage",
   data() {

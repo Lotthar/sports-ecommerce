@@ -91,6 +91,14 @@
 </template>
 
 <script>
+import {
+  firebaseSignIn,
+  sendPasswordResetEmail,
+  loggUser,
+  sendEmailVerification,
+  authUser,
+  setSessionCookies
+} from "../../services/firebase/userservices";
 import { mapActions } from "vuex";
 export default {
   name: "LoginPage",
@@ -114,7 +122,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ["registerUser", "updateUser"]),
+    // ...mapActions("users", ["registerUser", "updateUser"]),
     passwordForgotenMethod() {
       if (this.passwordForgoten) {
         this.confirmResetPassword();
@@ -125,6 +133,7 @@ export default {
       let aUser = authUser();
       let { uid, displayName, photoURL, email } = aUser;
       let registerDbUser = {
+        email: this.user.email,
         firstname: "",
         lastname: "",
         "country": ""
@@ -138,15 +147,16 @@ export default {
           // Referencirati prave metode za signin
           await firebaseSignIn(this.user);
           // Treba mi metod koji vraca je li korisnik ulogovan
-          if (true) {
+          if (loggUser()) {
+            setSessionCookies(loggUser().uid)
             let newFBuser = this.newStateUser();
-            
+            // Ovdje dodati da se doda novi korisnik u vuex
             this.$q.notify({
               message: "You have succesfully signed in, Welcome!",
               color: "positive",
               duration: "5000"
             });
-            this.$router.push({ name: 'HomePage', params: { userId: '12345'} })
+            this.$router.push({ name: 'HomePage'});
           } else {
             this.$q
               .dialog({

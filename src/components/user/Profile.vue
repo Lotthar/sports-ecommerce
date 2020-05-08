@@ -3,7 +3,7 @@
   <h1>Loading user data...</h1>
 </div>
   <div v-else>
-    PROFILE  {{  `${user.firstname} ${user.lastname}` }}
+    PROFILE  {{  `${user.data.firstname} ${user.data.lastname}` }}
     <div>
       <router-view />
     </div>
@@ -11,26 +11,23 @@
 </template>
 
 <script>
-import { getUserFirebase } from "../../services/firebase/userservices";
+import { getUserFirebase, authUser } from "../../services/firebase/userservices";
 
 export default {
   name: "UserProfile",
   data() {
     return {
-      userFB: null
+      user: null
     }
   },
-  computed: {
-    user() {
-      return !this.userFB ? "" : this.userFB.data();
-    }
-  },
-  async mounted() {
-    this.userFB = await getUserFirebase(this.$route.params.userId);
-    if(!this.userFB.exists) {
+  beforeCreate() {
+    if(!authUser()) {
       this.$router.push({ name: "LoginPage"});
     }
-    console.log(this.userFB);
+  },
+  async beforeMount() {
+    const fbUser = await getUserFirebase(this.$route.params.userId);
+    this.user = { uid: fbUser.id, data: fbUser.data()};
   }
 }
 </script>

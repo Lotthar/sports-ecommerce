@@ -1,18 +1,20 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div class="sign-in-container">
-        <q-card class="signin-card" style="min-width: 350px">
-          <q-img src="statics/sports-logo.jpg" />
-          <q-card-section>
-            <div class="row justify-center">
-              <div style="text-align: center;" class="col-12 add-task-title">{{ signInHeader}}</div>
-            </div>
-            <q-page-container>
-              <router-view />
-            </q-page-container>
-          </q-card-section>
-        </q-card>
-      </div>
+      <div class="sign-in-container">
+          <q-card class="signin-card" style="min-width: 350px">
+            <q-img src="statics/sports-logo.jpg" />
+            <q-slide-transition>
+              <q-card-section v-show="visible">
+                <div class="row justify-center">
+                  <div style="text-align: center;" class="col-12 add-task-title">{{ signInHeader}}</div>
+                </div>
+                <q-page-container>
+                  <router-view />
+                </q-page-container>
+              </q-card-section>
+            </q-slide-transition>
+          </q-card>
+        </div>
   </q-layout>
 </template>
 <script>
@@ -20,8 +22,14 @@ export default {
   name: "SignInPage",
   data() {
     return {
-      loginForm: true
+      loginForm: true,
+      visible: false,
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.visible = true;
+    }, 250)
   },
   computed: {
     signInHeader() {
@@ -42,6 +50,7 @@ export default {
   background-color: rgba(0,0,0,0.5) !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
+  padding: 20px 0;
   div.sign-in-container {
     grid-area: signinarea;
     max-height: 100%;

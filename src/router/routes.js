@@ -22,6 +22,7 @@ const routes = [
         path: "users/:userId",
         name: "UserProfile",
         component: () => import("components/user/Profile.vue"),
+        meta: { requiresAuth: true },
         children: [
           {
             path: "orders",
@@ -34,7 +35,7 @@ const routes = [
             component: () => import("components/user/Cart.vue")
           },
           {
-            path: "/admin",
+            path: "admin",
             name: "AdminPage",
             component: () => import("components/user/AdminPage.vue")
           }
@@ -65,6 +66,8 @@ const routes = [
     ]
   }
 ];
+
+const isAuthenticated = () => {};
 
 // Always leave this as last one
 if (process.env.MODE !== "ssr") {

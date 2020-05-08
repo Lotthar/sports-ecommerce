@@ -1,4 +1,5 @@
 import baseService from "./base";
+import { Cookies } from "quasar";
 
 const EMAIL = "sportskaopremaweb@gmail.com";
 const PASS = "prodavnica123";
@@ -7,7 +8,7 @@ const usersCollection = baseService.db().collection("users");
 
 // Get firebase auth user
 const authUser = () => {
-  return firebase.auth().currentUser;
+  return baseService.auth().currentUser;
 };
 // Add user to session if firebase login is successful and email verified
 export const loggUser = () => {
@@ -16,19 +17,19 @@ export const loggUser = () => {
   return true;
 };
 
-// const setSessionCookies = uid => {
-//   try {
-//     Cookies.set("todoSessionId", uid, {
-//       expires: 1,
-//       path: "/"
-//     });
-//     console.log("Session/Cookies user set successfuly");
-//     return true;
-//   } catch (error) {
-//     console.log("Error storing user inside a session/cookies", error);
-//     return false;
-//   }
-// };
+const setSessionCookies = uid => {
+  try {
+    Cookies.set("todoSessionId", uid, {
+      expires: 1,
+      path: "/"
+    });
+    console.log("Session/Cookies user set successfuly");
+    return true;
+  } catch (error) {
+    console.log("Error storing user inside a session/cookies", error);
+    return false;
+  }
+};
 
 // Returns user from firebase
 const getUserFirebase = async userUID => {
@@ -72,7 +73,7 @@ const signOutSession = () => {
 
 //Creating new user with Email and password
 const firebaseRegisterUser = async credential => {
-  let result = await firebase
+  let result = await baseService
     .auth()
     .createUserWithEmailAndPassword(credential.email, credential.password);
   return result;
@@ -80,7 +81,7 @@ const firebaseRegisterUser = async credential => {
 
 // firebase sign in method for givent email and password in credentials object
 const firebaseSignIn = async credential => {
-  let response = await firebase
+  let response = await baseService
     .auth()
     .signInWithEmailAndPassword(credential.email, credential.password);
   return response;
@@ -88,7 +89,7 @@ const firebaseSignIn = async credential => {
 
 // Firebase signout method
 const firebaseSignOut = async () => {
-  let response = await firebase.auth().signOut();
+  let response = await baseService.auth().signOut();
   return response;
 };
 
@@ -121,7 +122,7 @@ const sendEmailVerification = async () => {
 
 //Firebase password reset email
 const sendPasswordResetEmail = async email => {
-  let auth = firebase.auth();
+  let auth = baseService.auth();
   let response = await auth.sendPasswordResetEmail(email);
   return response;
 };
@@ -154,5 +155,6 @@ export {
   getUserFirebase,
   authUser,
   loggedUser,
-  signOutSession
+  signOutSession,
+  setSessionCookies
 };

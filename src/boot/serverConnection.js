@@ -1,6 +1,6 @@
 import firebaseService from "../services/firebase/base";
 
-export default async () => {
+export default () => {
   let config = process.env.FIREBASE_CONFIG;
   if (!config) {
     config = {
@@ -14,11 +14,6 @@ export default async () => {
       measurementId: "G-47KWTZ6LKT"
     };
   }
-  // Provjeriti zasto ga ne vuce
+  // Provjeriti zasto ga ne vuce - inicijalizcija firebase configuracije
   firebaseService.fBInit(config);
-
-  // Validation that our service structure is working
-  // with a firebase app instance. Does not validate a
-  // valid API key.
-  console.log(firebaseService.auth());
 };

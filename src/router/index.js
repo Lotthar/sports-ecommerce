@@ -17,6 +17,7 @@ Vue.use(VueRouter);
 export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
+    // Prije svake korisnicke rute gledati je li ulogovan i preusmjeravati ako nije
     routes,
     // TODO: Dodati beforeEach navigation guard da bi vidio
     //  da li korisnik smije da udje u stranicu

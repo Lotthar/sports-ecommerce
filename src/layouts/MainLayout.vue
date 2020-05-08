@@ -10,24 +10,55 @@
       :breakpoint="765"
     >
       <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
-      <user-toolbar />
+      <!-- TODO: dodati opcioni panel LOGIN/REGISTER umjesto ovoga ako korisnik nije ulogovan -->
+      <user-toolbar :user="user" />
       <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->
       <category />
     </q-drawer>
 
     <q-page-container>
+      <transition :name="transitionName">
       <router-view />
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-
+import { authUser, loggedUser } from "../services/firebase/userservices";
+import serverCon from "../boot/serverConnection";
 export default {
   name: 'MainLayout',
   data () {
     return {
       categoryDrawerOpen: false,   
+      transitionName: "",
+      user: null
+    }
+  },
+  beforeMount()  {
+    // Provjeravamo je li ruta koju korisnik smije da koristi ako nije ulogovan
+    this.$router.beforeEach((to, from, next) => {
+
+      const isAuth = authUser();
+      const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+
+      if (requiresAuth && isAuth === null) next({ path: "/login"});
+      else if (!requiresAuth && isAuth !== null ) next("/");
+      else if (!requiresAuth && isAuth === null) next();
+      else next();
+    });
+  },
+  mounted() {
+    if(authUser()){
+      this.user = authUser();
+    } 
+  },
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.path.split('/').length
+      const fromDepth = from.path.split('/').length
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
     }
   },
   components: {
