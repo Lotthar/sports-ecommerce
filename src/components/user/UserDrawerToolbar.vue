@@ -8,8 +8,6 @@
       <div class="row no-wrap q-pa-md">
         <div class="column">
           <div class="text-h6 q-mb-md user-data-menu">Your data</div>
-          <!-- <q-toggle label="Use Mobile Data" /> -->
-          <!-- <q-toggle label="Bluetooth" /> -->
             <q-btn :to="`/users/${this.user.uid}`" label="Profile" color="primary"/>
             <q-btn :to="`/users/${this.user.uid}/orders`" label="Orders" color="primary"/>
             <q-btn :to="`/users/${this.user.uid}/cart`" label="Cart" color="primary"/>
