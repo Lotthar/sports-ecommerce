@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <store-header @showCategoryDrawer="categoryDrawerOpen = !categoryDrawerOpen"/>
+    <store-header :user="user" @showCategoryDrawer="categoryDrawerOpen = !categoryDrawerOpen"/>
     <q-drawer
       :width="250"
       show-if-above
@@ -11,7 +11,6 @@
     >
       <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
       <!-- TODO: dodati opcioni panel LOGIN/REGISTER umjesto ovoga ako korisnik nije ulogovan -->
-      <user-toolbar :user="user" />
       <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->
       <category />
     </q-drawer>
@@ -60,8 +59,7 @@ export default {
   },
   components: {
     "store-header" : () => import("../components/header/Header"),
-    "category" : () => import("../components/products/Category"),
-    "user-toolbar": () => import("../components/user/UserDrawerToolbar")
+    "category" : () => import("../components/products/Category")
   }
 }
 </script>

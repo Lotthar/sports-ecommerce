@@ -1,15 +1,48 @@
 <template>
-  <div v-if="userfb">
-    USER-TOOLBAR
-    <q-btn :to="`/users/${this.user.uid}`" label="Profile" color="black"/>
-    <q-btn :to="`/users/${this.user.uid}/orders`" label="Orders" color="black"/>
-    <q-btn :to="`/users/${this.user.uid}/cart`" label="Cart" color="black"/>
-    <q-btn @click="signOut()" label="Sign-Out" color="black"/>
+  <div v-if="userfb" class="q-pa-md">
+    <q-btn-dropdown
+      class="user-btn"
+      color="accent"
+      label="Welcome, Marko"
+    >
+      <div class="row no-wrap q-pa-md">
+        <div class="column">
+          <div class="text-h6 q-mb-md user-data-menu">Your data</div>
+          <!-- <q-toggle label="Use Mobile Data" /> -->
+          <!-- <q-toggle label="Bluetooth" /> -->
+            <q-btn :to="`/users/${this.user.uid}`" label="Profile" color="primary"/>
+            <q-btn :to="`/users/${this.user.uid}/orders`" label="Orders" color="primary"/>
+            <q-btn :to="`/users/${this.user.uid}/cart`" label="Cart" color="primary"/>
+        </div>
+
+        <q-separator vertical inset class="q-mx-lg" />
+
+        <div class="column items-center">
+          <q-avatar size="72px">
+            <!-- <img :src="!userfb.data.imgURL ? 'statics/default-profile.jpg' : userfb.data.imgURL"> -->
+            <img src="statics/default-profile.jpg">
+
+          </q-avatar>
+
+          <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">{{ `${userFB.data.firstname} ${userFB.data.lastname}`}}</div> -->
+          <div class="text-subtitle1 q-mt-md q-mb-xs">Marko Markovic</div>
+
+          <q-btn
+            @click="signOut()"
+            color="primary"
+            label="Logout"
+            dense
+            size="sm"
+            v-close-popup
+          />
+        </div>
+      </div>
+    </q-btn-dropdown>
   </div>
   <div v-else>
     <q-btn to="/login" label="Login" color="accent"/>
     <q-btn to="/register" label="Register" color="negative"/>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -26,7 +59,7 @@ export default {
       this.$q
         .dialog({
           title: "Confirm",
-          title: "Are you sure you want to sign out?",
+          title: "Are you sure you want to log out?",
           dark: true,
           color: "accent",
           cancel: true,
@@ -45,3 +78,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.q-btn.q-btn-item {
+  margin-bottom: 5px;
+}
+</style>
