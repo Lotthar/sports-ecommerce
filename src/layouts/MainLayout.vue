@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import { authUser, loggedUser } from "../services/firebase/userservices";
+import { authUser, loggedUser, getUserFirebase } from "../services/firebase/userservices";
 import serverCon from "../boot/serverConnection";
+import { auth } from 'firebase';
 export default {
   name: 'MainLayout',
   data () {
@@ -35,11 +36,11 @@ export default {
       user: null
     }
   },
-  beforeMount()  {
+  async beforeMount()  {
     // Provjeravamo je li ruta koju korisnik smije da koristi ako nije ulogovan
-    this.$router.beforeEach((to, from, next) => {
+    this.$router.beforeEach(async (to, from, next) => {
 
-      this.user = authUser();
+      this.user = await this.getUserIfLogged();
       const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
       if (requiresAuth && this.user === null) {
@@ -47,8 +48,23 @@ export default {
       } else next();
     });
   },
-  updated() {
-    this.user = authUser();
+  async updated() {
+    if(this.user === null) {
+      this.user = await this.getUserIfLogged();
+    }
+  },
+  methods: {  
+    async getUserIfLogged() {
+      if(authUser() !== null) {
+        try {
+          const fbUser = await getUserFirebase(authUser().uid);
+          return { uid: fbUser.id, data: fbUser.data()};
+        } catch(error) {
+          return null;
+        }
+      }
+      return null;
+    }
   },
   watch: {
     '$route' (to, from) {

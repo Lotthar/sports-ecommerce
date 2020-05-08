@@ -3,14 +3,14 @@
     <q-btn-dropdown
       class="user-btn"
       color="accent"
-      label="Welcome, Marko"
+      :label="userfb.data.firstname"
     >
       <div class="row no-wrap q-pa-md">
         <div class="column">
           <div class="text-h6 q-mb-md user-data-menu">Your data</div>
-            <q-btn :to="`/users/${this.user.uid}`" label="Profile" color="primary"/>
-            <q-btn :to="`/users/${this.user.uid}/orders`" label="Orders" color="primary"/>
-            <q-btn :to="`/users/${this.user.uid}/cart`" label="Cart" color="primary"/>
+            <q-btn :to="`/users/${userfb.uid}`" label="Profile" color="primary"/>
+            <q-btn :to="`/users/${userfb.uid}/orders`" label="Orders" color="primary"/>
+            <q-btn :to="`/users/${userfb.uid}/cart`" label="Cart" color="primary"/>
         </div>
 
         <q-separator vertical inset class="q-mx-lg" />
@@ -22,8 +22,8 @@
 
           </q-avatar>
 
-          <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">{{ `${userFB.data.firstname} ${userFB.data.lastname}`}}</div> -->
-          <div class="text-subtitle1 q-mt-md q-mb-xs">Marko Markovic</div>
+          <div class="text-subtitle1 q-mt-md q-mb-xs">{{ `${userfb.data.firstname} ${userfb.data.lastname}`}}</div>
+          <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">Marko Markovic</div> -->
 
           <q-btn
             @click="signOut()"

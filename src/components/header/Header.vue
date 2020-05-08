@@ -1,18 +1,21 @@
 <template>
   <q-header elevated>
-    <!-- TODO: Dodati user avatar ikonicu gdje moze da otvori i da klikne da vidi narudzbine i korpu -->
     <q-toolbar>
-        <q-btn
-        class="text-info"
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="$emit('showCategoryDrawer')"
-        ><tool-tip anchor="bottom left"
-            selfPosition="bottom left"
-            :delay="50" >Prikazi panel sa kategorijama</tool-tip></q-btn>
+      <q-btn
+      class="text-info"
+        flat
+        dense
+        round
+        icon="menu"
+        aria-label="Menu"
+        @click="$emit('showCategoryDrawer')"
+      >
+        <tool-tip anchor="bottom left"
+          selfPosition="bottom left"
+          :delay="50" >
+          Prikazi panel sa kategorijama i sekcijama
+        </tool-tip>
+      </q-btn>
 
       <user-toolbar class="q-mr-lg" :user="userfb" />
 
@@ -55,23 +58,36 @@ export default {
     height:100%;
     display: grid;
     justify-content: space-between;
-    grid-template-areas: '. searchbar searchbar searchbar . .';
+    grid-template-areas: 'categorybtn searchbar searchbar searchbar . . logo';
     grid-gap: 10px;
     .search-products-bar {
       grid-area: searchbar;
     }
+    .q-btn {
+      grid-area: categorybtn;
+    }
+    .q-avatar.avatar-logo {
+      grid-area: logo;
+      border-radius: 9px;
+      cursor: pointer;
+      margin-right: 6px;
+      height: 70px;
+      width: 130px;
+    }
+    .q-avatar.avatar-logo:hover {
+      border: 2px solid $accent;
+      transform: scale(1.06);
+      transition: 0.5s linear;
+    }
   }
 }
-.q-avatar.avatar-logo {
-  border-radius: 9px;
-  cursor: pointer;
-  margin-right: 6px;
-  height: 70px;
-  width: 130px;
-}
-.q-avatar.avatar-logo:hover {
-  border: 2px solid $accent;
-  transform: scale(1.06);
-  transition: 0.5s linear;
+
+@media(max-width: 650px) {
+  .q-header {
+    .q-toolbar {
+      justify-content: space-around;
+      grid-template-areas: 'categorybtn categorybtn . logo logo logo' 'searchbar searchbar searchbar . . .';
+    }
+  }
 }
 </style>
