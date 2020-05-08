@@ -29,7 +29,7 @@
           <q-card-section>
             <div class="row">
               <q-input
-                type="password"
+                :type="isPasswordSeen ? 'text' : 'password'"
                 dark
                 ref="password"
                 v-model="user.password"
@@ -40,6 +40,12 @@
                         val => isValidPassword || 'You need at least 8 characters']"
               >
                 <template v-slot:append>
+                  <q-icon
+                      color="primary"
+                      :name="isPasswordSeen ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click.stop="isPasswordSeen = !isPasswordSeen"
+                    />
                   <q-icon
                     v-if="user.password"
                     name="close"
@@ -52,7 +58,7 @@
           </q-card-section>
           <q-card-section>
             <div class="row">
-              <q-input dark v-model="user.displayName" class="col-12" outlined label="Enter your name">
+              <q-input dark v-model="user.displayName" class="col-12" outlined label="Enter your first and lastname">
                 <template v-slot:append>
                   <q-icon
                     v-if="user.displayName"
@@ -88,7 +94,7 @@
           <q-card-section>
             <div class="row justify-evenly">
               <div class="col-3">
-                <q-btn to="login" dense color="info" class="full-width" label="Back" />
+                <q-btn to="login" dense color="info" class="full-width" label="Back to Login" />
               </div>
               <div class="col-3">
                 <q-btn
@@ -118,10 +124,17 @@
 </template>
 
 <script>
+import {
+  firebaseRegisterUser,
+  sendEmailVerification,
+  updateUser
+} from "../../services/firebase/userservices";
+
 export default {
     name: "RegisterPage",
   data() {
     return {
+      isPasswordSeen: false,
       user: {
         email: "",
         password: "",
@@ -159,7 +172,7 @@ export default {
                 color: "positive",
                 duration: "4000"
               });
-              this.$emit("logIn");
+              this.$router.push({ name: "LoginPage" });
             } catch (error) {
               this.$q.notify({
                 message: "Error updating user after registration",

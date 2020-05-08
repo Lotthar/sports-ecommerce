@@ -17,9 +17,9 @@
         </tool-tip>
       </q-btn>
 
-      <user-toolbar class="q-mr-lg" :user="userfb" />
+      <user-toolbar class="q-mr-lg user-toolbar" :user="userfb" />
 
-      <q-avatar  class="fixed-right avatar-logo">
+      <q-avatar  class="avatar-logo">
         <img src="statics/sports-logo.jpg" @click="$router.push({name: 'HomePage'})"/>
       </q-avatar>
 
@@ -52,16 +52,19 @@ export default {
 <style lang="scss" scoped>
 .q-header {
   padding: 0;
-  height: 70px;
+  height: 100px;
   .q-toolbar {
     width:100%;
     height:100%;
     display: grid;
     justify-content: space-between;
-    grid-template-areas: 'categorybtn searchbar searchbar searchbar . . logo';
+    grid-template-areas: 'categorybtn logo searchbar searchbar searchbar usertb usertb ';
     grid-gap: 10px;
     .search-products-bar {
       grid-area: searchbar;
+    }
+    .user-toolbar {
+      grid-area: usertb;
     }
     .q-btn {
       grid-area: categorybtn;
@@ -71,8 +74,10 @@ export default {
       border-radius: 9px;
       cursor: pointer;
       margin-right: 6px;
-      height: 70px;
       width: 130px;
+      .q-img {
+        height: 100%;
+      }
     }
     .q-avatar.avatar-logo:hover {
       border: 2px solid $accent;
@@ -84,9 +89,26 @@ export default {
 
 @media(max-width: 650px) {
   .q-header {
+    height: unset;
     .q-toolbar {
       justify-content: space-around;
-      grid-template-areas: 'categorybtn categorybtn . logo logo logo' 'searchbar searchbar searchbar . . .';
+      grid-template-areas: 'logg logo usertb usertb' 
+                            'categorybtn searchbar searchbar searchbar';
+          
+    }
+  }
+}
+@media(min-width: 1024px) {
+  .q-header {
+    height: unset;
+    .q-toolbar {
+      justify-content: space-between;
+      grid-template-areas: 'categorybtn logo logo searchbar searchbar searchbar searchbar searchbar searchbar usertb usertb';
+      .q-avatar.avatar-logo {
+        .q-img {
+          height: 100%;
+        }
+      }
     }
   }
 }

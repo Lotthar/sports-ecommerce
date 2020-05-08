@@ -97,7 +97,8 @@ import {
   loggUser,
   sendEmailVerification,
   authUser,
-  setSessionCookies
+  setSessionCookies,
+  registerUserDB
 } from "../../services/firebase/userservices";
 import { mapActions } from "vuex";
 export default {
@@ -132,11 +133,14 @@ export default {
       // Zamijeniti sa novom fb funkcijom koja vraca user-a
       let aUser = authUser();
       let { uid, displayName, photoURL, email } = aUser;
+      const firstlastname = !displayName ? ["",""] : displayName.split(" ");
+
       let registerDbUser = {
         email: this.user.email,
-        firstname: "",
-        lastname: "",
-        "country": ""
+        firstname: firstlastname[0],
+        lastname: firstlastname[1],
+        imgURL: photoURL,
+        country: ""
       };
       return { uid, data: registerDbUser };
     },
@@ -149,6 +153,7 @@ export default {
           // Treba mi metod koji vraca je li korisnik ulogovan
           if (loggUser()) {
             let newFBuser = this.newStateUser();
+            await registerUserDB(newFBuser)
             // Ovdje dodati da se doda novi korisnik u vuex
             this.$q.notify({
               message: "You have succesfully signed in, Welcome!",
@@ -163,7 +168,7 @@ export default {
                 title: "Attention",
                 cancel: true,
                 message:
-                  "Email of the user is not verified! Check-out your email for verification link or send another email",
+                  "Email of the user is not verified! Check-out your email for verification link. Click yes for another verification email",
                 color: "info"
               })
               .onOk(async () => {

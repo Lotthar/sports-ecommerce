@@ -53,22 +53,43 @@ const getUserFirebase = async userUID => {
   }
 };
 
-const loggedUser = async () => {
-  try {
-    let cookieUserId = Cookies.get("todoSessionId");
-    if (!cookieUserId) return null;
-    let sessionStorageUser = await getUserFirebase(cookieUserId);
-    return { uid: sessionStorageUser.id, data: sessionStorageUser.data() };
-  } catch (error) {
-    console.log("Neka je greska sa vracanjem session/cookie usera");
-  }
-};
+// const loggedUser = async () => {
+//   try {
+//     let cookieUserId = Cookies.get("todoSessionId");
+//     if (!cookieUserId) return null;
+//     let sessionStorageUser = await getUserFirebase(cookieUserId);
+//     return { uid: sessionStorageUser.id, data: sessionStorageUser.data() };
+//   } catch (error) {
+//     console.log("Neka je greska sa vracanjem session/cookie usera");
+//   }
+// };
 
-const signOutSession = () => {
-  Cookies.remove("todoSessionId", {
-    expires: 1,
-    path: "/"
-  });
+// const signOutSession = () => {
+//   Cookies.remove("todoSessionId", {
+//     expires: 1,
+//     path: "/"
+//   });
+// };
+
+/**
+ * Writes user with extra fileds form authUser into firebase database
+ *
+ * @param {*} user - user that we want to write into firebase
+ */
+const registerUserDB = async user => {
+  try {
+    const alreadyRegisteredUser = await getUserFirebase(user.uid);
+    // if the user is already added to the firebase
+    if (alreadyRegisteredUser.exists) {
+      let userData = alreadyRegisteredUser.data();
+      userData.lastLoginAt = new Date().getTime();
+      return;
+    }
+    const addedUser = await usersCollection.doc(user.uid).set({ ...user.data });
+    console.log("Added user successfuly in firebase");
+  } catch (error) {
+    console.error("Error adding user: ", error);
+  }
 };
 
 //Creating new user with Email and password
@@ -93,16 +114,16 @@ const firebaseSignOut = async () => {
   return response;
 };
 
-// //Firebase update user method
-// const updateUser = async updates => {
-//   let user = authUser();
-//   if (user === null) return false;
-//   const response = await user.updateProfile({
-//     displayName: updates.displayName,
-//     photoURL: updates.photoURL
-//   });
-//   return response;
-// };
+//Firebase update user method
+const updateUser = async updates => {
+  let user = authUser();
+  if (user === null) return false;
+  const response = await user.updateProfile({
+    displayName: updates.displayName,
+    photoURL: updates.photoURL
+  });
+  return response;
+};
 
 // Firebase update users email method
 const updateUserEmail = async email => {
@@ -154,7 +175,6 @@ export {
   reauthenticateUser,
   getUserFirebase,
   authUser,
-  loggedUser,
-  signOutSession,
-  setSessionCookies
+  updateUser,
+  registerUserDB
 };

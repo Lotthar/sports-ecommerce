@@ -17,9 +17,7 @@
 
         <div class="column items-center">
           <q-avatar size="72px">
-            <!-- <img :src="!userfb.data.imgURL ? 'statics/default-profile.jpg' : userfb.data.imgURL"> -->
-            <img src="statics/default-profile.jpg">
-
+            <img :src="!userfb.data.imgURL ? 'statics/default-profile.jpg' : userfb.data.imgURL">
           </q-avatar>
 
           <div class="text-subtitle1 q-mt-md q-mb-xs">{{ `${userfb.data.firstname} ${userfb.data.lastname}`}}</div>
