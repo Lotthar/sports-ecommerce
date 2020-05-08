@@ -64,7 +64,7 @@ export default {
       color: $accent;
       background: rgba($color: white, $alpha: 0.6);
       .q-img {
-        height: 200px;
+        height: 100%;
         width: 100%;
       }
       div.add-task-title {

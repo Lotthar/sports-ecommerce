@@ -40,18 +40,16 @@ export default {
     // Provjeravamo je li ruta koju korisnik smije da koristi ako nije ulogovan
     this.$router.beforeEach((to, from, next) => {
 
-      const isAuth = authUser();
+      this.user = authUser();
       const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
-      if (requiresAuth && isAuth === null) {
+      if (requiresAuth && this.user === null) {
         next({ path: "/login"});
       } else next();
     });
   },
-  mounted() {
-    if(authUser()){
-      this.user = authUser();
-    } 
+  updated() {
+    this.user = authUser();
   },
   watch: {
     '$route' (to, from) {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user">
+  <div v-if="userfb">
     USER-TOOLBAR
     <q-btn :to="`/users/${this.user.uid}`" label="Profile" color="black"/>
     <q-btn :to="`/users/${this.user.uid}/orders`" label="Orders" color="black"/>
@@ -16,6 +16,11 @@
 import { firebaseSignOut } from "../../services/firebase/userservices"
 export default {
   props: ["user"],
+  computed: {
+    userfb() {
+      return this.user ? this.user : null;
+    }
+  },
   methods: {
     async signOut() {
       this.$q
@@ -31,7 +36,7 @@ export default {
           try {
             await firebaseSignOut();
             console.log("usepjesan sign out");
-            this.$router.push({name: "LoginPage"});
+            this.$router.push({path: "/products"});
           } catch(error) {
             console.log("Greska prilikom signout-a korisnika");
           }
