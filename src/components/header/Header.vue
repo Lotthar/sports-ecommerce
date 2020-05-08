@@ -58,7 +58,7 @@ export default {
     height:100%;
     display: grid;
     justify-content: space-between;
-    grid-template-areas: 'categorybtn logo searchbar searchbar searchbar usertb usertb ';
+    grid-template-areas: 'categorybtn logo searchbar searchbar searchbar searchbar usertb usertb ';
     grid-gap: 10px;
     .search-products-bar {
       grid-area: searchbar;
