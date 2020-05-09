@@ -32,7 +32,7 @@ const getProducts = async () => {
     });
     return result;
   } catch (error) {
-    console.log("Greska prilikom dovlacenja svih kategorija");
+    console.log("Greska prilikom dovlacenja svih proizvoda");
     return error;
   }
 };

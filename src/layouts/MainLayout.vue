@@ -9,6 +9,7 @@
       content-class="bg-grey-1"
       :breakpoint="765"
     >
+      <q-btn label="Products" @click="$router.push({name:'AllProducts'})" /> 
       <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
       <!-- TODO: dodati opcioni panel LOGIN/REGISTER umjesto ovoga ako korisnik nije ulogovan -->
       <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->

@@ -12,7 +12,7 @@
 
       <q-card-section>
         <div class="text-h5 q-mt-sm q-mb-xs"> {{ product.data.name }}</div>
-        <div class="text-h6 text-secondary q-mt-sm q-mb-xs">{{ productCategory.name }}</div>
+        <div class="text-h6 text-accent q-mt-sm q-mb-xs">Category: <span class="text-secondary">{{ productCategory.name }}</span></div>
         <q-img
           :src="sectionIcon"
           class="absolute"
@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     goToProduct() {
-      // Prepraviti koje parametre kupi ali za sad radi
       this.$router.push({ name: "SingleProduct", params: { productId: this.product.id }})
     }
   },

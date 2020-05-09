@@ -21,7 +21,6 @@ export default {
   },
   async beforeMount() {
     this.products = await getProducts();
-    console.log(this.products);
   },
   computed: {
     

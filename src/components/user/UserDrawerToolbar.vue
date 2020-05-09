@@ -65,7 +65,11 @@ export default {
           try {
             await firebaseSignOut();
             console.log("usepjesan sign out");
-            this.$router.push({path: "/products"});
+            if(this.$route.name === "AllProducts") {
+              this.$router.push({name: "HomePage"});
+            } else {
+              this.$router.push({name: "AllProducts"});
+            }
           } catch(error) {
             console.log("Greska prilikom signout-a korisnika");
           }
