@@ -20,7 +20,12 @@
       <user-toolbar class="q-mr-lg user-toolbar" :user="userfb" />
 
       <q-avatar  class="avatar-logo">
-        <img src="statics/sports-logo.jpg" @click="$router.push({name: 'HomePage'})"/>
+        <img src="statics/sports-logo.jpg" @click="$router.push({name: 'HomePage'})">
+        <tool-tip anchor="top left"
+          selfPosition="top left"
+          :delay="50" >
+          Go to Home page
+        </tool-tip>
       </q-avatar>
 
       <search-products-bar class="search-products-bar"/>
@@ -53,6 +58,7 @@ export default {
 .q-header {
   padding: 0;
   height: 100px;
+  border-bottom: 2px solid $accent;
   .q-toolbar {
     width:100%;
     height:100%;
@@ -80,8 +86,7 @@ export default {
       }
     }
     .q-avatar.avatar-logo:hover {
-      border: 2px solid $accent;
-      transform: scale(1.06);
+      transform: scale(1.1);
       transition: 0.5s linear;
     }
   }

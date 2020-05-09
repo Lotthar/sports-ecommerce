@@ -20,7 +20,7 @@ export default {
       tooltipStyle: {
         color: "#be7b22",
         background: "rgba(0,0,0,0.9)",
-        fontSize: "20px",
+        fontSize: "15px",
         marginLeft: "%"
       }
     };

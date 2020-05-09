@@ -23,6 +23,15 @@ const getProductCategory = async product => {
   }
 };
 
+const getProducts = async (startPage, pageSize, sortString) => {
+  try {
+    const fbProducts = await productsCollection.get();
+  } catch (error) {
+    console.log("Greska prilikom dovlacenja proizvoda");
+    return error;
+  }
+};
+
 const getAllCategories = async () => {
   try {
     const fbCategories = await categoryCollection.get();

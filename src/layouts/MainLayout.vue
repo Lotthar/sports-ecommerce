@@ -17,7 +17,7 @@
 
     <q-page-container>
       <transition :name="transitionName">
-      <router-view />
+        <router-view />
       </transition>
     </q-page-container>
   </q-layout>
@@ -81,5 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+aside.q-drawer--left.q-drawer--bordered {
+  border-right: 2px solid black;
+}
 </style>
