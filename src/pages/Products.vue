@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <product-card v-for="product in pageOfProducts" :key="product.id" :product="product" />
+    <product-card v-for="product in pageOfProducts" :key="product.id" :product="product" :user="user" />
     <div>
       <jw-pagination v-if="products" :items="products" @changePage="onChangePage"></jw-pagination>
     </div>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { authUser,getUserFirebase } from "../services/firebase/userservices";
 import { getProducts } from "../services/firebase/productservice";
 import JwPagination from 'jw-vue-pagination';
 
@@ -16,10 +17,15 @@ export default {
   data() {
     return {
       products: null,
+      user: null,
       pageOfProducts: []
     }
   },
   async beforeMount() {
+    const currUser = authUser();
+    if(currUser) {
+      this.user= await getUserFirebase(currUser.uid);
+    }
     this.products = await getProducts();
   },
   computed: {

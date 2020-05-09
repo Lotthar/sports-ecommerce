@@ -35,7 +35,7 @@
       </q-card-section>
 
       <q-card-actions class="flex flex-center">
-        <q-btn dense color="positive" label="Add to cart" />
+        <q-btn @click.stop="addToCart" dense color="positive" label="Add to cart" />
       </q-card-actions>
     </q-card>
   </transition-group>
@@ -44,12 +44,15 @@
 <script>
 import { getProductCategory } from "../../services/firebase/productservice";
 export default {
-  props: ["product"],
+  props: ["product","user"],
   data() {
     return {
       expandedDescription: false,
-      productCategory: ""
+      productCategory: "",
     }
+  },
+  computed: {
+    
   },
   async beforeMount() {
     this.productCategory = await getProductCategory(this.product.data);
@@ -57,6 +60,14 @@ export default {
   methods: {
     goToProduct() {
       this.$router.push({ name: "SingleProduct", params: { productId: this.product.id }})
+    },
+    addToCart() {
+      if(this.user) {
+        console.log({ ...this.user.data, uid: this.user.uid });
+      } else {
+        console.log("Login required for adding");
+        this.$router.push({ name: "LoginPage"});
+      }
     }
   },
   computed: {

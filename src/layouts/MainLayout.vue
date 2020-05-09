@@ -56,10 +56,10 @@ export default {
   },
   methods: {  
     async getUserIfLogged() {
-      if(authUser() !== null) {
+      const aUser = authUser();
+      if(aUser !== null) {
         try {
-          const fbUser = await getUserFirebase(authUser().uid);
-          return { uid: fbUser.id, data: fbUser.data()};
+          return await getUserFirebase(aUser.uid);
         } catch(error) {
           return null;
         }

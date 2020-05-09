@@ -26,8 +26,7 @@ export default {
     }
   },
   async beforeMount() {
-    const fbUser = await getUserFirebase(this.$route.params.userId);
-    this.user = { uid: fbUser.id, data: fbUser.data()};
+    this.user = await getUserFirebase(this.$route.params.userId);
   }
 }
 </script>

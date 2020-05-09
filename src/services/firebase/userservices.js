@@ -36,7 +36,7 @@ const getUserFirebase = async userUID => {
   try {
     // const loggedUser = await userFBSignIn({ email: EMAIL, password: PASS });
     const fbUser = await usersCollection.doc(userUID).get();
-    return fbUser;
+    return { uid: fbUser.id, data: fbUser.data() };
   } catch (error) {
     if (error.code === "permission-denied") {
       console.log(
