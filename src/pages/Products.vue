@@ -2,7 +2,7 @@
   <q-page>
     <product-card v-for="product in pageOfProducts" :key="product.id" :product="product" :user="user" />
     <q-separator />
-    <jw-pagination v-if="products" :items="products" @changePage="onChangePage" ></jw-pagination>
+    <jw-pagination v-if="products" :items="products" @changePage="onChangePage" style="display: flex;"></jw-pagination>
   </q-page>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     return {
       products: null,
       user: null,
-      pageOfProducts: []
+      pageOfProducts: [],
     }
   },
   async beforeMount() {
@@ -69,11 +69,14 @@ ul.pagination {
     position: absolute;
     left: 50%;    
     transform: translateX(-50%);
+    width: 90%;
     bottom: 10px;
     color: $accent;
     border-radius: 9px;
     background: $primary;
     font-weight: bolder;
+    display: flex;
+    justify-content: center;
 }
 
 

@@ -2,6 +2,8 @@
   <q-layout view="lHh Lpr lFf">
     <store-header :user="user" @showCategoryDrawer="categoryDrawerOpen = !categoryDrawerOpen"/>
     <q-drawer
+      dark
+      :content-style="{ backgroundColor: 'red' }"
       :width="250"
       show-if-above
       v-model="categoryDrawerOpen"
