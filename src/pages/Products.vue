@@ -1,9 +1,8 @@
 <template>
   <q-page>
     <product-card v-for="product in pageOfProducts" :key="product.id" :product="product" :user="user" />
-    <div>
-      <jw-pagination v-if="products" :items="products" @changePage="onChangePage"></jw-pagination>
-    </div>
+    <q-separator />
+    <jw-pagination v-if="products" :items="products" @changePage="onChangePage" ></jw-pagination>
   </q-page>
 </template>
 
@@ -11,6 +10,8 @@
 import { authUser,getUserFirebase } from "../services/firebase/userservices";
 import { getProducts } from "../services/firebase/productservice";
 import JwPagination from 'jw-vue-pagination';
+
+
 
 export default {
   name: 'AllProducts',
@@ -50,9 +51,32 @@ export default {
   padding: 10px;
   justify-content: space-evenly;
   align-items: center;
+  grid-template-rows: auto 1fr auto;
   grid-template-columns: auto auto auto ;
   grid-gap: 15px;
+  position: relative;
+  margin-bottom: 10px;
+  padding-bottom: 70px;;
 }
+.q-separator.q-separator--horizontal {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;    
+  transform: translateX(-50%);
+  background: $primary;
+}
+ul.pagination {
+    position: absolute;
+    left: 50%;    
+    transform: translateX(-50%);
+    bottom: 10px;
+    color: $accent;
+    border-radius: 9px;
+    background: $primary;
+    font-weight: bolder;
+}
+
+
 @media( min-width: 1200px) {
   .q-page {
     grid-template-columns: auto auto auto auto;
