@@ -35,7 +35,7 @@
       </div>
     </q-btn-dropdown>
   </div>
-  <div v-else>
+  <div v-else class="flex justify-evenly">
     <q-btn to="/login" label="Login" color="accent"/>
     <q-btn to="/register" label="Register" color="negative"/>
   </div> 

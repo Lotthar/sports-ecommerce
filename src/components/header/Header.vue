@@ -96,7 +96,7 @@ export default {
   .q-header {
     height: unset;
     .q-toolbar {
-      justify-content: space-around;
+      justify-content: space-between;
       grid-template-areas: 'logg logo usertb usertb' 
                             'categorybtn searchbar searchbar searchbar';
           

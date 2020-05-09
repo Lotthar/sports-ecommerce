@@ -4,7 +4,7 @@
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
     >
-    <q-card class="my-card" flat bordered :key="id">
+    <q-card class="my-card" flat bordered :key="id" @click.stop="goToProduct()">
       <q-img
       alt="Slika proizvoda"
         src="statics/sportswearbackground.jpg"
@@ -50,6 +50,12 @@ export default {
       expandedDescription: false
     }
   },
+  methods: {
+    goToProduct() {
+      // Prepraviti koje parametre kupi ali za sad radi
+      this.$router.push({ name: "SingleProduct", params: { productId: this.id }})
+    }
+  },
   computed: {
     sectionIcon() {
       if(this.product) {
@@ -71,6 +77,7 @@ export default {
 
 <style lang="scss" scoped>
   .q-card {
+    cursor: pointer;
     background: $primary;
     color: $accent;
     .q-img {
