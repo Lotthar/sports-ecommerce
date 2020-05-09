@@ -23,11 +23,16 @@ const getProductCategory = async product => {
   }
 };
 
-const getProducts = async (startPage, pageSize, sortString) => {
+const getProducts = async () => {
   try {
     const fbProducts = await productsCollection.get();
+    let result = [];
+    fbProducts.forEach(product => {
+      result.push({ id: product.id, data: product.data() });
+    });
+    return result;
   } catch (error) {
-    console.log("Greska prilikom dovlacenja proizvoda");
+    console.log("Greska prilikom dovlacenja svih kategorija");
     return error;
   }
 };
@@ -46,4 +51,4 @@ const getAllCategories = async () => {
   }
 };
 
-export { productByID, getProductCategory, getAllCategories };
+export { productByID, getProductCategory, getAllCategories, getProducts };

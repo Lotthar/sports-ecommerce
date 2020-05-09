@@ -16,6 +16,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "firebase": "^7.14.2",
+    "jw-vue-pagination": "^1.0.3",
     "quasar": "^1.0.0"
   },
   "devDependencies": {
