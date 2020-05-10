@@ -2,13 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <store-header :user="user" @showCategoryDrawer="categoryDrawerOpen = !categoryDrawerOpen"/>
     <q-drawer
+      elevated
       dark
-      :content-style="{ backgroundColor: 'red' }"
       :width="250"
+      no-swipe-backdrop
       show-if-above
       v-model="categoryDrawerOpen"
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-grey-4 border-right-primary"
       :breakpoint="765"
     >
       <q-btn label="Products" @click="$router.push({name:'AllProducts'})" /> 
@@ -84,7 +85,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-aside.q-drawer--left.q-drawer--bordered {
-  border-right: 2px solid black;
-}
+
 </style>
