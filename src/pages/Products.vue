@@ -27,6 +27,10 @@ export default {
     if(currUser) {
       this.user= await getUserFirebase(currUser.uid);
     }
+    const filterCategory = this.$route.query.category;
+    const filterSection = this.$route.query.section;
+    console.log(filterCategory);
+    console.log(filterSection);
     this.products = await getProducts();
   },
   computed: {

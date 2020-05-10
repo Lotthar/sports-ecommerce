@@ -63,7 +63,7 @@ export default {
     },
     addToCart() {
       if(this.user) {
-        console.log({ ...this.user.data, uid: this.user.uid });
+        console.log({ ...this.user.data, uid: this.user.id });
       } else {
         console.log("Login required for adding");
         this.$router.push({ name: "LoginPage"});

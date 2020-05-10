@@ -16,7 +16,11 @@
       <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
       <!-- TODO: dodati opcioni panel LOGIN/REGISTER umjesto ovoga ako korisnik nije ulogovan -->
       <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->
-      <category />
+      <sections />
+      <category 
+        v-for="category in categories" 
+        :key="category.id" 
+        :category="category"/>
     </q-drawer>
 
     <q-page-container>
@@ -28,7 +32,8 @@
 </template>
 
 <script>
-import { authUser, loggedUser, getUserFirebase } from "../services/firebase/userservices";
+import { getAllCategories } from "../services/firebase/productservice";
+import { authUser, getUserFirebase } from "../services/firebase/userservices";
 import serverCon from "../boot/serverConnection";
 import { auth } from 'firebase';
 export default {
@@ -37,11 +42,13 @@ export default {
     return {
       categoryDrawerOpen: false,   
       transitionName: "",
-      user: null
+      user: null,
+      categories: []
     }
   },
-  async beforeMount()  {
+  async beforeMount() {
     // Provjeravamo je li ruta koju korisnik smije da koristi ako nije ulogovan
+    await this.loadProductCategories();
     this.$router.beforeEach(async (to, from, next) => {
 
       this.user = await this.getUserIfLogged();
@@ -49,7 +56,9 @@ export default {
 
       if (requiresAuth && this.user === null) {
         next({ path: "/login"});
-      } else next();
+      } else {
+        next();
+      }
     });
   },
   async updated() {
@@ -68,6 +77,10 @@ export default {
         }
       }
       return null;
+    },
+    async loadProductCategories() {
+      this.categories = await getAllCategories();
+      
     }
   },
   watch: {
@@ -79,7 +92,8 @@ export default {
   },
   components: {
     "store-header" : () => import("../components/header/Header"),
-    "category" : () => import("../components/products/Category")
+    "category" : () => import("../components/products/Category"),
+    "sections" : () => import("../components/products/Section")
   }
 }
 </script>
