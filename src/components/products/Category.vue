@@ -7,11 +7,12 @@ export default {
   name: "ProductCategory",
   methods: {
     filterProductsCategory() {
+      // Fix za sad za ucitavanje parametara za pretragu / query se ne clonira normalno
+      // i onda vue router ne moze da pushuje rutu koja ima sve iste propertije ..
       let queries = JSON.parse(JSON.stringify(this.$route.query));
       queries.category = this.category.id;
       this.$router.push({ name: "AllProducts", query: queries}).
       then(resp => {
-        // Fix za sad za ucitavanje parametara za pretragu
       }).catch(error => {
         this.$router.replace({ query: queries }).catch(err => {
           console.log("Router: nema promjene u kategorijama i sekcijama");
