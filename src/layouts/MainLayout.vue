@@ -4,19 +4,23 @@
     <q-drawer
       elevated
       dark
-      :width="250"
+      :width="270"
       no-swipe-backdrop
       show-if-above
       v-model="categoryDrawerOpen"
       bordered
-      content-class="bg-grey-4 border-right-primary"
+      content-class="bg-grey-4 border-right-primary text-accent flex flex-column justify-evenly align-items-center"
       :breakpoint="765"
     >
-      <q-btn label="Products" @click="$router.push({name:'AllProducts'})" /> 
-      <!-- TODO: dodati korisnicki red sa slikom,imenom, i panelom za opcije -->
-      <!-- TODO: dodati opcioni panel LOGIN/REGISTER umjesto ovoga ako korisnik nije ulogovan -->
-      <!-- TODO:  Dodati listu kategorija sa odredjenom tranzicijom-->
+      <h4>Products filtering</h4>
+      <q-btn class="all-products" label="All Products" @click="$router.push({name:'AllProducts'})" /> 
+      <div class="text-center text-primary gender-label">
+        Gender Sections
+      </div>
       <sections />
+      <div class="text-center text-accent gender-label">
+        Categories 
+      </div>
       <category 
         v-for="category in categories" 
         :key="category.id" 
@@ -84,7 +88,7 @@ export default {
     }
   },
   watch: {
-    '$route' (to, from) {
+    $route (to, from) {
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length
       this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
@@ -99,5 +103,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.q-drawer{
+  .q-btn.all-products {
+    font-weight: bolder;
+    background: $accent;
+    color: $primary;
+    width: 90%;
+    margin: 5px auto;
+    transition: 1s linear;
+  }
+  .q-btn.all-products:hover {
+    transform: scale(1.03);
+  }
+  h4 {
+    font-weight: bolder;
+    padding: 0;
+    color: $primary;
+    margin: 3px auto;
+  }
+  div.gender-label {
+    font-weight: bolder;
+    font-size: 25px;
+  }
+}
 
 </style>

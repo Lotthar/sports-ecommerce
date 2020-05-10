@@ -1,8 +1,26 @@
 <template>
-  <div>
-    <q-btn label="Male" @click="filterProductsCategory('male')" />
-    <q-btn label="Female" @click="filterProductsCategory('female')" />
-    <q-btn label="Kids"  @click="filterProductsCategory('kids')"/>
+  <div class="sections">
+    <q-btn icon="img:statics/male-section.png"  @click="filterProductsCategory('male')">
+      <tool-tip anchor="bottom left"
+          selfPosition="bottom left"
+          :delay="50" >
+          Filter male products
+      </tool-tip>
+    </q-btn>
+    <q-btn icon="img:statics/female-section.png"  @click="filterProductsCategory('female')">
+      <tool-tip anchor="bottom left"
+          selfPosition="bottom left"
+          :delay="50" >
+          Filter female products
+      </tool-tip>
+    </q-btn>
+    <q-btn icon="img:statics/kids-section.png" @click="filterProductsCategory('kids')">
+      <tool-tip anchor="bottom left"
+          selfPosition="bottom left"
+          :delay="50" >
+          Filter kids products
+      </tool-tip>
+    </q-btn>
   </div>
 </template>
 <script>
@@ -22,7 +40,21 @@ export default {
         });
       })
     }
+  },
+  components: {
+    "tool-tip" : () => import("../util/ToolTip")
   }
-  
 }
 </script>
+<style lang="scss" scoped>
+div.sections{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  .q-btn {
+    background: $primary;
+  }
+}
+</style>
+
+

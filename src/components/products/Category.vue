@@ -1,7 +1,5 @@
 <template>
-  <div>
     <q-btn :label="category.name" @click="filterProductsCategory()" />
-  </div>
 </template>
 <script>
 export default {
@@ -24,3 +22,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .q-btn {
+    width: 90%;
+    margin-bottom: 7px;
+    background: $primary;
+    font-weight: bold;
+    padding-top: 2px;
+    font-size: 15px;
+    transition: 1s linear;
+  }
+  .q-btn:hover {
+    transform: scale(1.01);
+  }
+</style>

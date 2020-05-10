@@ -13,7 +13,7 @@
         <tool-tip anchor="bottom left"
           selfPosition="bottom left"
           :delay="50" >
-          Prikazi panel sa kategorijama i sekcijama
+          Product filters
         </tool-tip>
       </q-btn>
 
