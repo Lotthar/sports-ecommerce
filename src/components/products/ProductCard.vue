@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { getProductCategory } from "../../services/firebase/productservice";
+import { categoryByID } from "../../services/firebase/productservice";
 export default {
   props: ["product","user"],
   data() {
@@ -55,7 +55,8 @@ export default {
     
   },
   async beforeMount() {
-    this.productCategory = await getProductCategory(this.product.data);
+    const cat = await categoryByID(this.product.data.category);
+    this.productCategory = cat.data();
   },
   methods: {
     goToProduct() {

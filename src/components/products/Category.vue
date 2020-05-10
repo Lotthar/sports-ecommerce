@@ -14,7 +14,6 @@ export default {
       this.$router.push({ name: "AllProducts", query: queries}).
       then(resp => {
         // Fix za sad za ucitavanje parametara za pretragu
-        location.reload();
       }).catch(error => {
         this.$router.replace({ query: queries }).catch(err => {
           console.log("Router: nema promjene u kategorijama i sekcijama");

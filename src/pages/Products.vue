@@ -8,7 +8,7 @@
 
 <script>
 import { authUser,getUserFirebase } from "../services/firebase/userservices";
-import { getProducts } from "../services/firebase/productservice";
+import { getAllProducts, getFilteredProducts } from "../services/firebase/productservice";
 import JwPagination from 'jw-vue-pagination';
 
 
@@ -20,6 +20,8 @@ export default {
       products: null,
       user: null,
       pageOfProducts: [],
+      filterCategory: null,
+      filterSection: null
     }
   },
   async beforeMount() {
@@ -27,19 +29,30 @@ export default {
     if(currUser) {
       this.user= await getUserFirebase(currUser.uid);
     }
-    const filterCategory = this.$route.query.category;
-    const filterSection = this.$route.query.section;
-    console.log(filterCategory);
-    console.log(filterSection);
-    this.products = await getProducts();
+    this.loadProducts(this.$route);
   },
   computed: {
     
   },
+  watch:{
+    $route (to, from){
+      // Kada se promijene query parameteri odraditi nove upite
+      this.loadProducts(to);
+    }
+},
   methods: {
     onChangePage(pageOfProducts) {
         // update page of products
         this.pageOfProducts = pageOfProducts;
+    },
+    async loadProducts(route) {
+      this.filterCategory = route.query.category;
+      this.filterSection =  route.query.section;
+      if(this.filterCategory || this.filterSection) {
+        this.products = await getFilteredProducts(this.filterCategory, this.filterSection);
+      } else {
+        this.products = await getAllProducts();
+      }
     }
   },
   components: {

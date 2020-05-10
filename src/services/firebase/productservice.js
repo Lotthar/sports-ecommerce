@@ -13,6 +13,16 @@ const productByID = async productId => {
   }
 };
 
+const categoryByID = async categoryId => {
+  try {
+    const category = await categoryCollection.doc(categoryId + "").get();
+    return category;
+  } catch (error) {
+    console.log("Greska prilikom vracanja proizvoda po ID-u");
+    return error;
+  }
+};
+
 const getProductCategory = async product => {
   try {
     const category = await product.category.get();
@@ -23,7 +33,7 @@ const getProductCategory = async product => {
   }
 };
 
-const getProducts = async () => {
+const getAllProducts = async () => {
   try {
     const fbProducts = await productsCollection.get();
     let result = [];
@@ -34,6 +44,37 @@ const getProducts = async () => {
   } catch (error) {
     console.log("Greska prilikom dovlacenja svih proizvoda");
     return error;
+  }
+};
+
+// Gets filtered products by category and section
+const getFilteredProducts = async (category, section) => {
+  let query;
+  try {
+    if (section) {
+      query = productsCollection.where("section", "==", section);
+    }
+    if (category) {
+      if (query) {
+        query = query.where("category", "==", parseInt(category));
+      } else {
+        query = productsCollection.where("category", "==", parseInt(category));
+      }
+    }
+    const result = [];
+    let productsGet;
+    if (query) {
+      productsGet = await query.get();
+    } else {
+      productsGet = await productsCollection.get();
+    }
+    productsGet.forEach(product => {
+      result.push({ id: product.id, data: product.data() });
+    });
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };
 
@@ -51,4 +92,11 @@ const getAllCategories = async () => {
   }
 };
 
-export { productByID, getProductCategory, getAllCategories, getProducts };
+export {
+  productByID,
+  getProductCategory,
+  getAllCategories,
+  getAllProducts,
+  getFilteredProducts,
+  categoryByID
+};
