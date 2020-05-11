@@ -21,7 +21,8 @@ export default {
       user: null,
       pageOfProducts: [],
       filterCategory: null,
-      filterSection: null
+      filterSection: null,
+      filterSearch: null,
     }
   },
   async beforeMount() {
@@ -48,11 +49,17 @@ export default {
     async loadProducts(route) {
       this.filterCategory = route.query.category;
       this.filterSection =  route.query.section;
-      if(this.filterCategory || this.filterSection) {
-        this.products = await getFilteredProducts(this.filterCategory, this.filterSection);
+      this.filterSearch = route.query.search;
+      let data;
+      if(this.filterCategory || this.filterSection || this.filterSearch) {
+        data = await getFilteredProducts(this.filterCategory, this.filterSection, this.filterSearch);
       } else {
-        this.products = await getAllProducts();
+        data = await getAllProducts();
       }
+      // if(this.filterSearch) {
+      //   data = data.filter(product => !product.data.name.includes(this.filterSearch));
+      // } 
+      this.products = data;
     }
   },
   components: {

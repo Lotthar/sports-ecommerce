@@ -48,7 +48,7 @@ const getAllProducts = async () => {
 };
 
 // Gets filtered products by category and section
-const getFilteredProducts = async (category, section) => {
+const getFilteredProducts = async (category, section, search) => {
   let query;
   try {
     if (section) {
@@ -69,7 +69,20 @@ const getFilteredProducts = async (category, section) => {
       productsGet = await productsCollection.get();
     }
     productsGet.forEach(product => {
-      result.push({ id: product.id, data: product.data() });
+      let newObj = { id: product.id, data: product.data() };
+      if (search) {
+        // Trazimo proizvode koji sadrze u imenu i nazivu unesene podatke
+        let nameProd = newObj.data.name;
+        let descriptionProd = newObj.data.description;
+        if (
+          nameProd.toLowerCase().includes(search.toLowerCase()) ||
+          descriptionProd.toLowerCase().includes(search.toLowerCase())
+        ) {
+          result.push(newObj);
+        }
+      } else {
+        result.push(newObj);
+      }
     });
     return result;
   } catch (error) {
