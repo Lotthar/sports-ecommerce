@@ -71,6 +71,10 @@ export default {
   .q-carousel {
     border-radius: 8px;
     width: 100%;
+    height: 75vh;
+  }
+  .q-carousel-slide {
+    height: 100%;
   }
   .custom-caption {
     text-align: center;
@@ -84,4 +88,10 @@ export default {
     color: $primary;
     background: rgba($color: $accent, $alpha: 0.8);
   }
+
+@media(max-width: 700px) {
+  .q-carousel {
+    height: 65vh;
+  }
+}
 </style>

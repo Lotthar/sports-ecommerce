@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input style="color: white;" color="accent" outlined v-model="searchText" label-color="accent" label="Enter product name" clearable>
+    <q-input style="color: white;" color="accent" outlined v-model="searchText" label-color="accent" label="Search for products..." clearable>
         <template v-slot:append v-if="!toggleAutoSearch">
           <q-btn @click.stop="searchProducts()" icon="search" color="accent" rounded />
         </template>

@@ -29,7 +29,7 @@
 
     <q-footer reveal>
       <q-toolbar>
-          <q-toolbar-title><span>Sports-Wear 	&#xA9;</span>store for sporting clothes and equipment. Welcome!</q-toolbar-title>
+          <q-toolbar-title><span>Sports-Wear 	&#xA9;</span>Web-store for sporting clothes and equipment. Welcome!</q-toolbar-title>
         </q-toolbar>
     </q-footer>
 
@@ -142,7 +142,6 @@ export default {
   border-top: 2px solid $accent;
   .q-toolbar {
     color: white;
-    font-size: 1px;
   }
   .q-toolbar__title {
     font-size: 15px;
@@ -153,6 +152,18 @@ export default {
     color: $accent;
     font-size: 25px;
     font-weight: bolder;
+  }
+}
+
+@media(max-width: 700px) {
+  .q-toolbar__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  span {
+    font-size: 20px;
   }
 }
 
