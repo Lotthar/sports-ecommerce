@@ -3,7 +3,10 @@
       animated
       v-model="slide"
       arrows 
+      autoplay
       navigation
+      transition-next="slide-left"
+      transition-prev="slide-right"
       infinite
       control-color="accent"
     >
