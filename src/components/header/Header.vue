@@ -1,8 +1,8 @@
 <template>
-  <q-header elevated>
+  <q-header elevated reveal >
     <q-toolbar>
       <q-btn
-      class="text-info"
+        class="text-info"
         flat
         dense
         round

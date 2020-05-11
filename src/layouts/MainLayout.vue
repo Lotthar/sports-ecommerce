@@ -27,11 +27,18 @@
         :category="category"/>
     </q-drawer>
 
+    <q-footer reveal>
+      <q-toolbar>
+          <q-toolbar-title><span>Sports-Wear 	&#xA9;</span>store for sporting clothes and equipment. Welcome!</q-toolbar-title>
+        </q-toolbar>
+    </q-footer>
+
     <q-page-container>
       <transition :name="transitionName">
         <router-view />
       </transition>
     </q-page-container>
+
   </q-layout>
 </template>
 
@@ -124,6 +131,28 @@ export default {
   div.gender-label {
     font-weight: bolder;
     font-size: 25px;
+  }
+}
+
+.q-footer {
+  color: $accent;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  border-top: 2px solid $accent;
+  .q-toolbar {
+    color: white;
+    font-size: 1px;
+  }
+  .q-toolbar__title {
+    font-size: 15px;
+  }
+  span {
+    display: inline-block;
+    margin-right: 10px;
+    color: $accent;
+    font-size: 25px;
+    font-weight: bolder;
   }
 }
 
