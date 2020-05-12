@@ -4,21 +4,21 @@
       <tool-tip anchor="bottom left"
           selfPosition="bottom left"
           :delay="50" >
-          Filter male products
+          Filtiraj samo muške proizvode
       </tool-tip>
     </q-btn>
     <q-btn :class="backgroundActiveStyleFemale" icon="img:statics/female-section.png"  @click="filterProductsSection('female')">
       <tool-tip anchor="bottom left"
           selfPosition="bottom left"
           :delay="50" >
-          Filter female products
+          Filtiraj samo ženske proizvode
       </tool-tip>
     </q-btn>
     <q-btn :class="backgroundActiveStyleKids" icon="img:statics/kids-section.png" @click="filterProductsSection('kids')">
       <tool-tip anchor="bottom left"
           selfPosition="bottom left"
           :delay="50" >
-          Filter kids products
+          Filtiraj samo dječje proizvode
       </tool-tip>
     </q-btn>
   </div>

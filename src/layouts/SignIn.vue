@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     signInHeader() {
-      return this.$route.name == "LoginPage" ? "Login Form" : "Register Form";
+      return this.$route.name == "LoginPage" ? "Forma za prijavu korisnika" : "Forma za registraciju korisnika";
     }
   }
 }
@@ -61,7 +61,7 @@ export default {
     .signin-card {
       width: 100%;
       height: 100%;
-      color: $accent;
+      color: $primary;
       background: rgba($color: white, $alpha: 0.6);
       .q-img {
         height: 100%;

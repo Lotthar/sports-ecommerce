@@ -20,7 +20,7 @@
           <tool-tip anchor="bottom middle"
             selfPosition="bottom middle"
             :delay="50" >
-            Checkout product details!
+            Provjerite ovaj proizvod detaljnije!
           </tool-tip>
         </div>
       </q-carousel-slide>

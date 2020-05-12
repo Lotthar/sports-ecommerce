@@ -26,7 +26,7 @@
 
           <q-card-actions align="right" class="text-primary">
             <q-btn flat  label="Prekini"   @click.prevent="addCartDialog = false" />
-            <q-btn flat   label="Dodaj u kolica" @click.prevent="addToCart(productForCart)" />
+            <q-btn flat   label="Dodaj" @click.prevent="addToCart(productForCart)" />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -39,7 +39,7 @@ import {
   QSpinnerGears
 } from 'quasar'
 import { authUser,getUserFirebase } from "../services/firebase/userservices";
-import { getAllProducts, getFilteredProducts } from "../services/firebase/productservice";
+import { getAllProducts, getFilteredProducts, updateProduct } from "../services/firebase/productservice";
 import { getUsersCart, updateCart } from "../services/firebase/cartservice";
 import JwPagination from 'jw-vue-pagination';
 
@@ -70,7 +70,7 @@ export default {
           spinnerColor: 'accent',
           messageColor: 'white',
           backgroundColor: 'primary',
-          message: 'LOADING PRODUCTS....'
+          message: 'UČITAVANJE PROIZVODA....'
     })
     await this.loadProducts(this.$route);
     this.$q.loading.hide();
@@ -124,6 +124,8 @@ export default {
 
         payload = { id: this.user.uid, updates: { ...cart.data }};
         await updateCart(payload);
+        this.productForCart.data.stocks = this.productForCart.data.stocks - this.cartProductAmount;
+        await updateProduct({id: this.productForCart.id, updates: {...this.productForCart.data}});
         this.addCartDialog = false;
         this.$q.notify({
         message:

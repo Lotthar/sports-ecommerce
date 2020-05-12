@@ -15,7 +15,7 @@ const getUsersCart = async userId => {
 // Ukoliko korisnik jos uvijek nema korpu
 const makeNewCart = async userId => {
   const cart = {
-    products: [],
+    products: {},
     total: 0
   };
   try {
@@ -23,6 +23,14 @@ const makeNewCart = async userId => {
     console.log("Created user cart successfuly in firebase");
   } catch (error) {
     console.error("Error adding task: ", error);
+  }
+};
+
+const clearCart = async userId => {
+  try {
+    await cartCollection.doc(userId).delete();
+  } catch (error) {
+    console.log("Greska prilikom ciscenja kolica");
   }
 };
 
@@ -35,4 +43,4 @@ const updateCart = async payload => {
   }
 };
 
-export { getUsersCart, updateCart, makeNewCart };
+export { getUsersCart, updateCart, makeNewCart, clearCart };

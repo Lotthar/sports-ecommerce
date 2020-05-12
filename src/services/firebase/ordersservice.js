@@ -17,4 +17,13 @@ const getUserOrders = async userId => {
   }
 };
 
-export { getUserOrders };
+const makeOrder = async order => {
+  try {
+    await ordersCollection.add(order);
+  } catch (error) {
+    console.error("Ne pravi narudzbinu");
+    console.log(error);
+  }
+};
+
+export { getUserOrders, makeOrder };

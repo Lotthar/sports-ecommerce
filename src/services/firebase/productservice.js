@@ -13,6 +13,15 @@ const productByID = async productId => {
   }
 };
 
+const updateProduct = async payload => {
+  try {
+    await productsCollection.doc(payload.id).update(payload.updates);
+    console.log("Updated product successfuly in firebase");
+  } catch (error) {
+    console.error("Error updating product in firebase", error);
+  }
+};
+
 const categoryByID = async categoryId => {
   try {
     const category = await categoryCollection.doc(categoryId + "").get();
@@ -111,5 +120,6 @@ export {
   getAllCategories,
   getAllProducts,
   getFilteredProducts,
-  categoryByID
+  categoryByID,
+  updateProduct
 };

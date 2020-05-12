@@ -7,10 +7,10 @@
     >
       <div class="row no-wrap q-pa-md">
         <div class="column">
-          <div class="text-h6 q-mb-md user-data-menu">Your data</div>
-            <q-btn :to="`/users/${userfb.uid}`" label="Profile" color="primary"/>
-            <q-btn :to="`/users/${userfb.uid}/orders`" label="Orders" color="primary"/>
-            <q-btn :to="`/users/${userfb.uid}/cart`" label="Cart" color="primary"/>
+          <div class="text-h6 q-mb-md user-data-menu">Vaši podaci</div>
+            <q-btn :to="`/users/${userfb.uid}`" label="Profil" color="primary"/>
+            <q-btn :to="`/users/${userfb.uid}/orders`" label="Porudžbine" color="primary"/>
+            <q-btn :to="`/users/${userfb.uid}/cart`" label="Kolica" color="primary"/>
         </div>
 
         <q-separator vertical inset class="q-mx-lg" />
@@ -26,7 +26,7 @@
           <q-btn
             @click="signOut()"
             color="primary"
-            label="Log-out"
+            label="Odjava"
             dense
             size="sm"
             v-close-popup
@@ -36,8 +36,8 @@
     </q-btn-dropdown>
   </div>
   <div v-else class="flex justify-evenly">
-    <q-btn to="/login" label="Login" color="accent"/>
-    <q-btn to="/register" label="Register" color="negative"/>
+    <q-btn to="/login" label="Prjava" color="accent"/>
+    <q-btn to="/register" label="Registracija" color="negative"/>
   </div> 
 </template>
 

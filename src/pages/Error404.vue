@@ -6,7 +6,7 @@
       >
     </p>
     <p class="text-faded">
-      Sorry, nothing here...<strong>(404)</strong>
+      Ne postoji nijedna stranica na ovoj lokaciji...<strong>(404)</strong>
     </p>
     <q-btn
       color="secondary"

@@ -1,15 +1,21 @@
 <template>
   <div>
-    <q-input style="color: white;" color="accent" outlined v-model="searchText" label-color="accent" label="Search for products..." clearable>
+    <q-input style="color: white;" color="accent" outlined v-model="searchText" label-color="accent" label="Pretražite proizvode po nazivu..." clearable>
         <template v-slot:append v-if="!toggleAutoSearch">
-          <q-btn @click.stop="searchProducts()" icon="search" color="accent" rounded />
+          <q-btn @click.stop="searchProducts()" icon="search" color="accent" rounded>
+            <tool-tip anchor="bottom left"
+              selfPosition="bottom left"
+              :delay="2000" >
+              Pretraži za unesene vrijednosti
+            </tool-tip>
+          </q-btn>
         </template>
         <template v-slot:prepend>
           <q-toggle color="accent" v-model="toggleAutoSearch">
             <tool-tip anchor="bottom left"
               selfPosition="bottom left"
               :delay="50" >
-              {{ toggleAutoSearch ? "Turn off auto-search after input" : "Turn on auto search after input" }}
+              {{ toggleAutoSearch ? "Ugasite auto-pretragu nakon unosa" : "Uključite auto-pretragu" }}
             </tool-tip>
           </q-toggle>
         </template>
@@ -53,14 +59,14 @@ export default {
       if(newVal) {
         this.$q.notify({
           message:
-            "Auto search has been activated!",
+            "Auto-pretraga je uključena!",
           color: "positive",
           duration: "4000"
         });
       } else {
         this.$q.notify({
           message:
-            "Auto search has been deactivated! Click on search button to start..",
+            "Auto-pretraga je isključena! Kliknite na dugme pretrage da vidite rezultate..",
           color: "info",
           duration: "4000"
         });

@@ -5,12 +5,12 @@
         <q-img :ratio="1" :src="!user.data.imgURL ? 'statics/default-profile.jpg' : user.data.imgURL" />
       </div>
       <div class="user-data">
-        <h2 >Personal informations</h2>
-        <div> Name: <span> {{ `${user.data.firstname} ${user.data.lastname}` }}</span></div>
+        <h2 >Lične informacije</h2>
+        <div> Ime i prezime: <span> {{ `${user.data.firstname} ${user.data.lastname}` }}</span></div>
         <div> E-mail: <span> {{ user.data.email }}</span></div>
-        <div> Country <span> {{ user.data.country }}</span></div>
-        <div> City: <span> {{ user.data.city }}</span></div>
-        <div> Address: <span> {{ user.data.address }}</span></div>
+        <div> Država <span> {{ user.data.country }}</span></div>
+        <div> Grad: <span> {{ user.data.city }}</span></div>
+        <div> Adresa: <span> {{ user.data.address }}</span></div>
       </div>
     </div>
     <div class="cart-orders">
@@ -21,10 +21,9 @@
         class="bg-primary text-white shadow-2"
         align="justify"
       >
-        <q-tab name="cart" icon="shopping_cart" label="Cart" />
-        <q-tab name="orders" icon="view_list" label="Orders" />
+        <q-tab name="cart" icon="shopping_cart" label="Kolica" />
+        <q-tab name="orders" icon="view_list" label="Porudžbine" />
       </q-tabs>
-      <q-separator class="q-ma-md" />
       <q-tab-panels v-if="userTabs.length"  class="q-mb-sm" v-model="userTabs" animated>
           <q-tab-panel name="cart">
             <router-view />
@@ -74,8 +73,14 @@ export default {
           spinnerColor: 'accent',
           messageColor: 'white',
           backgroundColor: 'primary',
-          message: 'LOADING USER DATA....'
+          message: 'UČITAVANJE KORISNIČKIH PODATAKA....'
     })
+    let route = this.$route.path.split("/");
+    if(this.userTabs === "" && route[route.length - 1] !== "cart" && route[route.length - 1] !== "orders") {
+      this.userTabs = "";
+    } else {
+      this.userTabs = route[route.length - 1];
+    }
     this.user = await getUserFirebase(this.$route.params.userId);
     this.$q.loading.hide();
   }

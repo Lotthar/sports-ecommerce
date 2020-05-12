@@ -13,7 +13,7 @@
         <tool-tip anchor="bottom left"
           selfPosition="bottom left"
           :delay="50" >
-          Product filters
+          Panel za proizvode
         </tool-tip>
       </q-btn>
 
@@ -24,7 +24,7 @@
         <tool-tip anchor="top left"
           selfPosition="top left"
           :delay="50" >
-          Go to Home page
+          Idite na početnu stranicu
         </tool-tip>
       </q-avatar>
 

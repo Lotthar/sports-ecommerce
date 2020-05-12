@@ -12,14 +12,14 @@
       content-class="bg-grey-4 border-right-primary text-accent flex flex-column justify-evenly align-items-center"
       :breakpoint="765"
     >
-      <h4>Products filtering</h4>
-      <q-btn class="all-products" label="All Products" @click="$router.push({name:'AllProducts'})" /> 
+      <h4>Proizvodi</h4>
+      <q-btn class="all-products" label="Prikaži sve" @click="$router.push({name:'AllProducts'})" /> 
       <div class="text-center text-primary gender-label">
-        Gender Sections
+        Sekcije po polovima
       </div>
       <sections />
       <div class="text-center text-accent gender-label">
-        Categories 
+        Kategorije 
       </div>
       <category 
         v-for="category in categories" 
@@ -29,7 +29,7 @@
 
     <q-footer reveal>
       <q-toolbar>
-          <q-toolbar-title><span>Sports-Wear 	&#xA9;</span>Web-store for sporting clothes and equipment. Welcome!</q-toolbar-title>
+          <q-toolbar-title><span>Sports-Wear 	&#xA9;</span>Web-prodavnica sportske opreme i odjeće. Dobrodošli!</q-toolbar-title>
         </q-toolbar>
     </q-footer>
 
@@ -99,7 +99,7 @@ export default {
           spinnerColor: 'accent',
           messageColor: 'white',
           backgroundColor: 'primary',
-          message: 'LOADING CATEGORIES....'
+          message: 'UČITAVANJE KATEGORIJA....'
       });
       this.categories = await getAllCategories();
       this.$q.loading.hide();

@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <div v-if="orders.length">
     <div v-for="order in orders" :key="order.id">
       <!-- Porudzbine se dovlace samo jos izlistati i prikazati proizvode kao acordion ili nesto -->
       {{ new Date(parseInt(order.data.deliveryDate)) }}
     </div>
+  </div>
+  <div v-else>
+    Trenutno nemate nijednu porudžbinu
   </div>
 </template>
 <script>
@@ -27,7 +30,7 @@ export default {
       spinnerColor: 'accent',
       messageColor: 'white',
       backgroundColor: 'primary',
-      message: 'LOADING PRODUCTS....'
+      message: 'UČITAVANJE PORUDDŽBINA....'
     })
     this.orders = await getUserOrders(userId);
     console.log(this.orders);

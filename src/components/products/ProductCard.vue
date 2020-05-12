@@ -35,7 +35,7 @@
       </q-card-section>
 
       <q-card-actions class="flex flex-center">
-        <q-btn @click.stop="addCart()" dense color="positive" label="Add to cart" icon="add_shopping_cart" />
+        <q-btn @click.stop="addCart()" dense color="positive" label="Dodaj u kolica" icon="add_shopping_cart" />
       </q-card-actions>
     </q-card>
   </transition-group>

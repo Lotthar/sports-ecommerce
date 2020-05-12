@@ -12,9 +12,9 @@
                   class="col-12"
                   dark
                   outlined
-                  label="Enter your email address"
-                  :rules="[val => !!val   || 'Email of the user is required',
-                          val => isValidEmail || 'You must enter email of proper format']"
+                  label="Unesite vašu e-mail adresu"
+                  :rules="[val => !!val   || 'Korisnički e-mail je neophodan!',
+                          val => isValidEmail || 'Morate unijeti pravilan format e-maila']"
                 >
                   <template v-slot:append>
                     <q-icon
@@ -36,9 +36,9 @@
                   v-model="user.password"
                   class="col-12"
                   outlined
-                  label="Enter your password"
-                  :rules="[val => !!val || 'Your need to enter your password',
-                          val => isValidPassword || 'You need at least 8 characters']"
+                  label="Unesite vašu lozinku"
+                  :rules="[val => !!val || 'Morate unijeti vašu lozinku',
+                          val => isValidPassword || 'Neophodno je makar 8 karaktera']"
                 >
                   <template v-slot:append>
                     <q-icon
@@ -65,12 +65,12 @@
                   class="q-ml-md"
                   @input="passwordForgotenMethod()"
                   v-model="passwordForgoten"
-                  label="Did you forget your password?"
+                  label="Jeste li zaboravili vašu lozinku?"
                 />
               </div>
               <div class="row justify-evenly">
                 <div class="col-5">
-                  <q-btn @click="logIn()" glossy dense color="accent" class="full-width" label="Log-in" />
+                  <q-btn @click="logIn()" glossy dense color="accent" class="full-width" label="Prijava" />
                 </div>
                 <div class="col-5">
                   <q-btn
@@ -80,7 +80,7 @@
                     style
                     color="secondary"
                     class="full-width"
-                    label="Register"
+                    label="Registracija"
                   />
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default {
           if (loggUser()) {
             // Ovdje dodati da se doda novi korisnik u vuex
             this.$q.notify({
-              message: "You have succesfully signed in, Welcome!",
+              message: "Uspješno ste se prijavili!",
               color: "positive",
               duration: "5000"
             });
@@ -149,13 +149,12 @@ export default {
                 title: "Attention",
                 cancel: true,
                 message:
-                  "Email of the user is not verified! Check-out your email for verification link. Click yes for another verification email",
+                  "E-mail korisnika nije verifikovan! Provjerite vaše sanduče za verifikacioni e-mail..",
                 color: "info"
               })
               .onOk(async () => {
                 try {
                   await sendEmailVerification();
-                  console.log("Email za verifikaciju uspjesno poslat");
                 } catch (error) {
                   if (error.code === "auth/too-many-requests") {
                     this.$q.notify({
@@ -177,7 +176,7 @@ export default {
           }
         } catch (error) {
           this.$q.notify({
-            message: "Error signing in user with given credentials!",
+            message: "Greška prilikom prijave sa unesenim kredencijalima!",
             color: "negative",
             duration: "4000"
           });
@@ -202,7 +201,7 @@ export default {
       this.$q
         .dialog({
           title: "Confirm",
-          title: "Are you sure you forgot your password?",
+          title: "Jeste li sigurni da ste zaboravili vašu lozinku?",
           dark: true,
           color: "primary",
           cancel: true,
@@ -216,10 +215,10 @@ export default {
                   color: "info",
                   timeout: 5000,
                   message:
-                    "Password reset code has been sent to email: " +
+                    "Kod za resetovanje vaše lozinke vam je poslat na email. E-mail:" +
                     this.user.email +
                     "\n" +
-                    "Follow the provided link and change your password"
+                    "Pratite link i promjenite lozinku."
                 });
                 this.$emit("passwordReset");
               })
@@ -228,15 +227,15 @@ export default {
                   color: "negative",
                   textColor: "dark",
                   message:
-                    "Error sending email for password reset " + this.user.email
+                    "Greška prilikom slanja emaila za resetovanje passworda. E-mail: " + this.user.email
                 });
                 this.passwordForgoten = false;
               });
           } else {
             this.$q.notify({
               color: "negative",
-              textColor: "dark",
-              message: "Email is not valid for password reset"
+              timeout: 4000,
+              message: "E-mail nije validan da bismo vam poslali link za resetovanje!"
             });
             this.passwordForgoten = false;
           }
