@@ -57,20 +57,15 @@ export default {
       this.$router.push({ name: "LoginPage"});
     }
   },
-  beforeMount() {
-    if(this.$route.fullPath.includes("cart")) {
-      this.userTabs = "cart";
-    } else if(this.$route.fullPath.includes("orders")) {
-      this.userTabs = "orders";
-    } else {
-      this.userTabs = "";
-    }
-  },
   watch: {
     userTabs(newTab) {
       if(!newTab.length) return; 
       let namePage = newTab === "cart" ? "UserCartPage" : "UserOrdersPage";
       this.$router.push({ name: namePage });
+    },
+    $route(to, from) {
+      let route = this.$route.path.split("/");
+      this.userTabs = route[route.length - 1];
     }
   },
   async beforeMount() {

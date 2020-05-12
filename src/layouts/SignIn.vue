@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
       <div class="sign-in-container">
           <q-card class="signin-card" style="min-width: 350px">
-            <q-img src="statics/sports-logo.jpg" />
+            <q-img class="cursor-pointer" src="statics/sports-logo.jpg" @click="$router.push({name: 'HomePage'})" />
             <q-slide-transition>
               <q-card-section v-show="visible">
                 <div class="row justify-center">

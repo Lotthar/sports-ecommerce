@@ -173,6 +173,7 @@ import {
   updateUser,
   registerUserDB
 } from "../../services/firebase/userservices";
+import { makeNewCart } from "../../services/firebase/cartservice";
 
 export default {
     name: "RegisterPage",
@@ -230,6 +231,8 @@ export default {
             try {
               let newFBuser = this.newStateUser();
               await registerUserDB(newFBuser)
+              // napravi korisnicku korpu
+              await makeNewCart(newFBuser.uid);
               this.$q.notify({
                 message:
                   "User successfuly registered! Verification email has been sent! ",

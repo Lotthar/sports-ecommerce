@@ -13,6 +13,26 @@ const getUsersCart = async userId => {
   }
 };
 // Ukoliko korisnik jos uvijek nema korpu
-const makeNewCart = () => {};
+const makeNewCart = async userId => {
+  const cart = {
+    products: [],
+    total: 0
+  };
+  try {
+    const newCart = await cartCollection.doc(userId).set({ ...cart });
+    console.log("Created user cart successfuly in firebase");
+  } catch (error) {
+    console.error("Error adding task: ", error);
+  }
+};
 
-export { getUsersCart };
+const updateCart = async payload => {
+  try {
+    await cartCollection.doc(payload.id).update(payload.updates);
+    console.log("Updated cart successfuly in firebase");
+  } catch (error) {
+    console.error("Error updating cart in firebase", error);
+  }
+};
+
+export { getUsersCart, updateCart, makeNewCart };

@@ -1,8 +1,35 @@
 <template>
   <q-page>
-    <product-card v-for="product in pageOfProducts" :key="product.id" :product="product" :user="user" />
+    <product-card @addCart="openDialogCart" 
+                  v-for="product in pageOfProducts" 
+                  :key="product.id" 
+                  :product="product" 
+                  :user="user" />
     <q-separator />
     <jw-pagination v-if="products" :items="products" @changePage="onChangePage" style="display: flex;"></jw-pagination>
+    <q-dialog v-model="addCartDialog" persistent>
+        <q-card style="min-width: 350px" class="text-primary bg-accent">
+          <q-card-section>
+            <div class="text-h6">Dodajte proizvod u vaša kolica</div>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            <q-input 
+            ref="amount" 
+            type="number" 
+            :rules="[val => val > 0 || 'Morate dodati makar jedan proizvod',
+                      val => val <= productForCart.data.stocks || 'Maksimalna kolicina proizvoda ne može da premašuje zalihe']" 
+            dense 
+            v-model="cartProductAmount" 
+            />
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat  label="Prekini"   @click.prevent="addCartDialog = false" />
+            <q-btn flat   label="Dodaj u kolica" @click.prevent="addToCart(productForCart)" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
   </q-page>
 </template>
 
@@ -13,6 +40,7 @@ import {
 } from 'quasar'
 import { authUser,getUserFirebase } from "../services/firebase/userservices";
 import { getAllProducts, getFilteredProducts } from "../services/firebase/productservice";
+import { getUsersCart, updateCart } from "../services/firebase/cartservice";
 import JwPagination from 'jw-vue-pagination';
 
 
@@ -22,11 +50,14 @@ export default {
   data() {
     return {
       products: null,
+      productForCart: null,
       user: null,
       pageOfProducts: [],
       filterCategory: null,
       filterSection: null,
       filterSearch: null,
+      addCartDialog: false,
+      cartProductAmount: 1
     }
   },
   async beforeMount() {
@@ -54,6 +85,57 @@ export default {
     }
 },
   methods: {
+    openDialogCart(product) {
+      this.addCartDialog = true;
+      this.productForCart = product;
+    },
+    async addToCart() {
+      if(this.productForCart.data.stocks < this.cartProductAmount) {
+        this.$q.notify({
+          message:
+            "Nema toliko proizvoda u zalihama, probajte da porucite manje ovaj put!",
+            color: "negative",
+            duration: "3000"
+          });
+          return;
+      }
+      if(this.cartProductAmount <= 0) {
+        this.$q.notify({
+          message:
+            "Morate dodati makar jedan proizvod ukoliko hocete da ga kupite!",
+            color: "warrning",
+            duration: "3000"
+          });
+          return;
+      }
+      if(this.user) {
+        const cart = await getUsersCart(this.user.uid);
+          // this.product.stocks = this.product.stocks - cartProductAmount;
+        console.log({ cart });
+        let alreadyAdded = cart.data.products[this.productForCart.id] ? true : false;
+        let payload;
+        cart.data.total= cart.data.total + (this.cartProductAmount * this.productForCart.data.price);
+        if(alreadyAdded) {
+          let newProductAmount = cart.data.products[this.productForCart.id] + this.cartProductAmount;
+          cart.data.products[this.productForCart.id] = newProductAmount
+        } else {
+          cart.data.products[this.productForCart.id] = this.cartProductAmount;
+        }
+
+        payload = { id: this.user.uid, updates: { ...cart.data }};
+        await updateCart(payload);
+        this.addCartDialog = false;
+        this.$q.notify({
+        message:
+          "Uspješno ste dodali proizvod u kolica",
+          color: "positive",
+          duration: "2000"
+        });        
+      } else {
+        console.log("Login required for adding");
+        this.$router.push({ name: "LoginPage"});
+      }
+    },
     onChangePage(pageOfProducts) {
         // update page of products
         this.pageOfProducts = pageOfProducts;
