@@ -97,8 +97,6 @@ import {
   loggUser,
   sendEmailVerification,
   authUser,
-  setSessionCookies,
-  registerUserDB
 } from "../../services/firebase/userservices";
 import { mapActions } from "vuex";
 export default {
@@ -129,21 +127,6 @@ export default {
         this.confirmResetPassword();
       }
     },
-    newStateUser() {
-      // Zamijeniti sa novom fb funkcijom koja vraca user-a
-      let aUser = authUser();
-      let { uid, displayName, photoURL, email } = aUser;
-      const firstlastname = !displayName ? ["",""] : displayName.split(" ");
-
-      let registerDbUser = {
-        email: this.user.email,
-        firstname: firstlastname[0],
-        lastname: firstlastname[1],
-        imgURL: photoURL,
-        country: ""
-      };
-      return { uid, data: registerDbUser };
-    },
     async logIn() {
       let success = await this.$refs.loginForm.validate();
       if (success) {
@@ -152,8 +135,6 @@ export default {
           await firebaseSignIn(this.user);
           // Treba mi metod koji vraca je li korisnik ulogovan
           if (loggUser()) {
-            let newFBuser = this.newStateUser();
-            await registerUserDB(newFBuser)
             // Ovdje dodati da se doda novi korisnik u vuex
             this.$q.notify({
               message: "You have succesfully signed in, Welcome!",

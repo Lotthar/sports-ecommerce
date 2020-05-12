@@ -43,6 +43,10 @@
 </template>
 
 <script>
+import {
+  Loading,
+  QSpinnerGears
+} from 'quasar'
 import { getAllCategories } from "../services/firebase/productservice";
 import { authUser, getUserFirebase } from "../services/firebase/userservices";
 import serverCon from "../boot/serverConnection";
@@ -90,8 +94,15 @@ export default {
       return null;
     },
     async loadProductCategories() {
+      this.$q.loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: 'accent',
+          messageColor: 'white',
+          backgroundColor: 'primary',
+          message: 'LOADING CATEGORIES....'
+      });
       this.categories = await getAllCategories();
-      
+      this.$q.loading.hide();
     }
   },
   watch: {

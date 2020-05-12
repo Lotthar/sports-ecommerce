@@ -58,12 +58,54 @@
           </q-card-section>
           <q-card-section>
             <div class="row">
-              <q-input dark v-model="user.displayName" class="col-12" outlined label="Enter your first and lastname">
+              <q-input  :rules="[val => !!val]" dark v-model="user.displayName" class="col-12" outlined label="Enter your first and lastname">
                 <template v-slot:append>
                   <q-icon
                     v-if="user.displayName"
                     name="close"
                     @click="user.displayName = ''"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input>
+            </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="row">
+              <q-input dark v-model="user.country" class="col-12" outlined label="Enter your country">
+                <template v-slot:append>
+                  <q-icon
+                    v-if="user.country"
+                    name="close"
+                    @click="user.country = ''"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input>
+            </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="row">
+              <q-input dark v-model="user.city" class="col-12" outlined label="Enter your city">
+                <template v-slot:append>
+                  <q-icon
+                    v-if="user.city"
+                    name="close"
+                    @click="user.city = ''"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input>
+            </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="row">
+              <q-input dark v-model="user.address" class="col-12" outlined label="Enter your address">
+                <template v-slot:append>
+                  <q-icon
+                    v-if="user.address"
+                    name="close"
+                    @click="user.address = ''"
                     class="cursor-pointer"
                   />
                 </template>
@@ -126,8 +168,10 @@
 <script>
 import {
   firebaseRegisterUser,
+  authUser,
   sendEmailVerification,
-  updateUser
+  updateUser,
+  registerUserDB
 } from "../../services/firebase/userservices";
 
 export default {
@@ -139,6 +183,9 @@ export default {
         email: "",
         password: "",
         displayName: "",
+        country: "",
+        city: "",
+        address: "",
         emailVerified: false,
         photoURL: ""
       }
@@ -154,6 +201,22 @@ export default {
     }
   },
   methods: {
+    newStateUser() {
+      // Zamijeniti sa novom fb funkcijom koja vraca user-a
+      let aUser = authUser();
+      const firstlastname = !this.user.displayName ? ["",""] : this.user.displayName.split(" ");
+
+      let registerDbUser = {
+        email: this.user.email,
+        firstname: firstlastname[0],
+        lastname: firstlastname[1],
+        imgURL: this.user.photoURL,
+        country: this.user.country,
+        city: this.user.city,
+        address: this.user.address
+      };
+      return { uid: aUser.uid, data: registerDbUser };
+    },
     async register() {
       const success = await this.$refs.registerForm.validate();
       if (success) {
@@ -165,7 +228,8 @@ export default {
             await sendEmailVerification();
             console.log("Verification email has been sent to: " + email);
             try {
-              await updateUser({ displayName, photoURL });
+              let newFBuser = this.newStateUser();
+              await registerUserDB(newFBuser)
               this.$q.notify({
                 message:
                   "User successfuly registered! Verification email has been sent! ",
@@ -175,7 +239,7 @@ export default {
               this.$router.push({ name: "LoginPage" });
             } catch (error) {
               this.$q.notify({
-                message: "Error updating user after registration",
+                message: "Something went wrong while trying to register user",
                 color: "negative"
               });
             }
@@ -203,7 +267,7 @@ export default {
       this.user = {
         email: "",
         password: "",
-        name: "",
+        displayName: "",
         emailVerified: false,
         photoURL: ""
       };

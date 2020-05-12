@@ -81,8 +81,6 @@ const registerUserDB = async user => {
     const alreadyRegisteredUser = await getUserFirebase(user.uid);
     // if the user is already added to the firebase
     if (alreadyRegisteredUser.exists) {
-      let userData = alreadyRegisteredUser.data();
-      userData.lastLoginAt = new Date().getTime();
       return;
     }
     const addedUser = await usersCollection.doc(user.uid).set({ ...user.data });

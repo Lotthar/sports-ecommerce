@@ -7,6 +7,10 @@
 </template>
 
 <script>
+import {
+  Loading,
+  QSpinnerGears
+} from 'quasar'
 import { authUser,getUserFirebase } from "../services/firebase/userservices";
 import { getAllProducts, getFilteredProducts } from "../services/firebase/productservice";
 import JwPagination from 'jw-vue-pagination';
@@ -30,7 +34,15 @@ export default {
     if(currUser) {
       this.user= await getUserFirebase(currUser.uid);
     }
-    this.loadProducts(this.$route);
+    this.$q.loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: 'accent',
+          messageColor: 'white',
+          backgroundColor: 'primary',
+          message: 'LOADING PRODUCTS....'
+    })
+    await this.loadProducts(this.$route);
+    this.$q.loading.hide();
   },
   computed: {
     
