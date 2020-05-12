@@ -14,7 +14,25 @@
       </div>
     </div>
     <div class="cart-orders">
-      <router-view />
+      <q-tabs
+        v-model="userTabs"
+        active-color="accent"
+        indicator-color="primary"
+        class="bg-primary text-white shadow-2"
+        align="justify"
+      >
+        <q-tab name="cart" icon="shopping_cart" label="Cart" />
+        <q-tab name="orders" icon="view_list" label="Orders" />
+      </q-tabs>
+      <q-separator class="q-ma-md" />
+      <q-tab-panels  class="q-mb-sm" v-model="userTabs" animated>
+          <q-tab-panel name="cart">
+            <router-view />
+          </q-tab-panel>
+          <q-tab-panel name="orders">
+            <router-view />
+          </q-tab-panel>
+      </q-tab-panels>
     </div>
   </div>
 </template>
@@ -30,12 +48,29 @@ export default {
   name: "UserProfile",
   data() {
     return {
-      user: null
+      user: null,
+      userTabs: "cart"  
     }
   },
   beforeCreate() {
     if(!authUser()) {
       this.$router.push({ name: "LoginPage"});
+    }
+  },
+  beforeMount() {
+    if(this.$route.path.includes("cart")) {
+      this.userTabs = "cart";
+    } else if(this.$route.path.includes("orders")) {
+      this.userTabs = "orders";
+    } else {
+      this.userTabs = "";
+    }
+  },
+  watch: {
+    userTabs(newTab) {
+      if(!newTab.length) return; 
+      let namePage = newTab === "cart" ? "UserCartPage" : "UserOrdersPage";
+      this.$router.push({ name: namePage });
     }
   },
   async beforeMount() {
@@ -61,6 +96,15 @@ export default {
     align-items: center;
     background: $accent;
     background: rgba(0,0,0,0.1);
+  }
+  div.cart-orders {
+    display: grid;
+    border-radius: 7px;
+    width: 97%;
+    grid-template-columns: 1fr;
+    .q-tab-panel, .q-tabs {
+      border-radius: 7px;
+    }
   }
   div.user-information {
     border-radius: 7px;

@@ -26,7 +26,7 @@
           <q-btn
             @click="signOut()"
             color="primary"
-            label="Logout"
+            label="Log-out"
             dense
             size="sm"
             v-close-popup
