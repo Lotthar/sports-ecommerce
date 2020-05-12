@@ -6,7 +6,7 @@ const categoryCollection = baseService.db().collection("categories");
 const productByID = async productId => {
   try {
     const product = await productsCollection.doc(productId).get();
-    return product;
+    return { id: product.id, data: product.data() };
   } catch (error) {
     console.log("Greska prilikom vracanja proizvoda po ID-u");
     return error;

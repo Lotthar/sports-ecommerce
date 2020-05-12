@@ -25,7 +25,7 @@
         <q-tab name="orders" icon="view_list" label="Orders" />
       </q-tabs>
       <q-separator class="q-ma-md" />
-      <q-tab-panels  class="q-mb-sm" v-model="userTabs" animated>
+      <q-tab-panels v-if="userTabs.length"  class="q-mb-sm" v-model="userTabs" animated>
           <q-tab-panel name="cart">
             <router-view />
           </q-tab-panel>
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       user: null,
-      userTabs: "cart"  
+      userTabs: ""  
     }
   },
   beforeCreate() {
@@ -58,9 +58,9 @@ export default {
     }
   },
   beforeMount() {
-    if(this.$route.path.includes("cart")) {
+    if(this.$route.fullPath.includes("cart")) {
       this.userTabs = "cart";
-    } else if(this.$route.path.includes("orders")) {
+    } else if(this.$route.fullPath.includes("orders")) {
       this.userTabs = "orders";
     } else {
       this.userTabs = "";

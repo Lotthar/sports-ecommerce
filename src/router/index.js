@@ -18,7 +18,7 @@ export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: (to, from, savedPosition) => {
       if (to.path.includes("cart") || to.path.includes("orders")) {
-        return { x: savedPosition.x, y: savedPosition.y };
+        return;
       }
       return { x: 0, y: 0 };
     },

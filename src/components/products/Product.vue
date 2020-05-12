@@ -18,8 +18,7 @@ export default {
     }
   },
   async beforeMount() {
-    const fbProduct = await productByID(this.$route.params.productId);
-    this.product = { id: fbProduct.id , data: fbProduct.data()}
+    this.product= await productByID(this.$route.params.productId);
   }
 }
 </script>
