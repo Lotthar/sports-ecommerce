@@ -122,8 +122,8 @@ export default {
     async orderProducts() {
       let userId = this.$route.params.userId;
       let order = {
-        orderDate: date.formatDate(Date.now(), "dd/MM/YYYY - HH:mm"),
-        deliveryDate:date.formatDate(date.addToDate(new Date(), { days: 4 }).getTime(), "dd/MM/YYYY - HH:mm"),
+        orderDate: date.formatDate(Date.now(), "DD/MM/YYYY - HH:mm"),
+        deliveryDate:date.formatDate(date.addToDate(new Date(), { days: 4 }).getTime(), "DD/MM/YYYY - HH:mm"),
         orderedProducts: this.cart.data.products,
         userId: userId,
         value: this.cart.data.total

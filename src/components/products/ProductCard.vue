@@ -12,7 +12,7 @@
 
       <q-card-section>
         <div class="text-h5 q-mt-sm q-mb-xs"> {{ currentProduct.data.name }}</div>
-        <div class="text-h6 text-accent q-mt-sm q-mb-xs">Kategorija: <span class="text-secondary">{{ productCategory.name }}</span></div>
+        <div  class="text-h6 text-accent q-mt-sm q-mb-xs">Kategorija: <span class="text-secondary">{{ productCategory.name }}</span></div>
         <q-img
           :src="sectionIcon"
           class="absolute"
@@ -20,12 +20,12 @@
         >
           <tool-tip>{{ currentProduct.data.section }} section</tool-tip>
         </q-img>
-        <div class="text-caption text-white font-weight-bold">
+        <div class="text-caption text-white font-weight-bold" >
           {{ currentProduct.data.description }}
         </div>
       </q-card-section>
 
-      <q-card-section style="font-size: 20px;">
+      <q-card-section style="font-size: 20px;" >
         <div class="flex justify-between">
           Cijena proizvoda: <span class="text-positive">{{ currentProduct.data.price }} &euro; </span>
         </div>
@@ -34,7 +34,7 @@
         </div>
       </q-card-section>
 
-      <q-card-actions class="flex flex-center">
+      <q-card-actions class="flex flex-center" >
         <q-btn @click.stop="addCart()" dense color="positive" label="Dodaj u kolica" icon="add_shopping_cart" />
       </q-card-actions>
     </q-card>

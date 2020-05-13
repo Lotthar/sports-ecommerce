@@ -60,7 +60,8 @@ export default {
     userTabs(newTab) {
       if(!newTab.length) return; 
       let namePage = newTab === "cart" ? "UserCartPage" : "UserOrdersPage";
-      this.$router.push({ name: namePage });
+      this.$router.push({ name: namePage }).then().catch(error => {
+      });
     },
     $route(to, from) {
       let route = this.$route.path.split("/");

@@ -176,7 +176,7 @@ export default {
   grid-gap: 15px;
   position: relative;
   margin-bottom: 10px;
-  padding-bottom: 70px;;
+  padding-bottom: 70px;
 }
 .q-separator.q-separator--horizontal {
   position: absolute;
