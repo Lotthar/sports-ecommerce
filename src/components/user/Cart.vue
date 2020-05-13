@@ -55,7 +55,7 @@ import {
 } from 'quasar'
 import { getUsersCart, deleteFromCart, updateCart } from "../../services/firebase/cartservice";
 import { makeOrder } from "../../services/firebase/ordersservice";
-import { productByID } from "../../services/firebase/productservice";
+import { productByID, updateProduct } from "../../services/firebase/productservice";
 export default {
   name: "UserCartPage",
   data() {
@@ -84,6 +84,10 @@ export default {
       for(let i = 0; i < this.cartProducts.length; i++) {
         if(this.cartProducts[i].id === product.id) {
           this.cartProducts.splice(i, 1);
+          product.stocks = product.stocks + this.cart.data.products[product.id];
+          let prodForUpdate = { ...product };
+          delete prodForUpdate[product.id];
+          await updateProduct({id: product.id, updates: {...prodForUpdate}});
           this.cart.data.total = this.cart.data.total - (this.cart.data.products[product.id] * product.price);
           delete this.cart.data.products[product.id];
         }
@@ -98,8 +102,14 @@ export default {
     },
     async clearCart() {
       let userId = this.$route.params.userId;
-      this.cartProducts = [];
+      for(let i = 0; i < this.cartProducts.length; i++) {
+          let prodForUpdate = { ...this.cartProducts[i] };
+          prodForUpdate.stocks = prodForUpdate.stocks + this.cart.data.products[this.cartProducts[i].id];
+          delete prodForUpdate[prodForUpdate.id];
+          await updateProduct({id: this.cartProducts[i].id, updates: {...prodForUpdate}});
+      }
       this.cart.data.products = {};
+      this.cartProducts = [];
       this.cart.data.total = 0;
       let payload = { id: userId, updates: { ...this.cart.data }};
       await updateCart(payload);
