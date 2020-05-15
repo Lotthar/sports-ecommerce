@@ -30,11 +30,11 @@
           Cijena proizvoda: <span class="text-positive">{{ currentProduct.data.price }} &euro; </span>
         </div>
         <div class="flex justify-between">
-          Ostalo u zalihama: <span class="text-white">{{ currentProduct.data.stocks}} </span>
+          Ostalo u zalihama: <span :class="(currentProduct.data.stocks > 0 ? 'text-positive' : 'text-negative')">{{ currentProduct.data.stocks > 0 ? currentProduct.data.stocks : "Trenutno nema u zalihama!" }} </span>
         </div>
       </q-card-section>
 
-      <q-card-actions class="flex flex-center" >
+      <q-card-actions class="flex flex-center" v-if="currentProduct.data.stocks > 0" >
         <q-btn @click.stop="addCart()" dense color="positive" label="Dodaj u kolica" icon="add_shopping_cart" />
       </q-card-actions>
     </q-card>
