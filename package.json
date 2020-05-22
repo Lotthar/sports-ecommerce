@@ -2,7 +2,7 @@
   "name": "sports-wear",
   "version": "0.0.1",
   "description": "Simple Web-store application for sporting clothes ",
-  "productName": "Quasar App",
+  "productName": "Sports-Wear",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "Branko Rovcanin <branko.rovcanin@gmail.com>",
