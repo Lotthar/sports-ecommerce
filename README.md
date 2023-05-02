@@ -1,6 +1,7 @@
 # Quasar App (sports-wear)
 
 Simple Web-store application for sporting clothes 
+https://sports-wear.vercel.app/
 
 ## Install the dependencies
 ```bash
